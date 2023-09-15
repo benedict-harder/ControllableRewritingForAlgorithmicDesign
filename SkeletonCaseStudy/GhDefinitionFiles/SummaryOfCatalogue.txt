@@ -1,0 +1,51 @@
+﻿General Guidelines of Part Definition
+- the parts are defined relative to the xy-plane, i.e. e.g. the x-axis defining the foundation top is [1 0 0], the y-axis [0 1 0], positive z is assumed to point to the top of the building;
+during a rewriting process, the component and interface geometries are generated in this way and then transformed in the right place.
+- the transformation in the rewriting process ensures that x-axises of interfaces match and y- and z-axis are oppositely directed.
+- rewriting rules, depending on the parameters and interfaces defined in the gh-definitions of the parts are defined via the c#-plugin.
+- naming conventions:
+	- parameters: RH_IN:ParameterName1 (no or finite number of params, rhino number data type)
+	- componentGeos: RH_OUT:ComponentGeo (one per part definition, rhino mesh data type)
+	- interfaces: RH_OUT:ComponentInterface_InterfaceName1 (name e.g. FoundationColumn, rhino plane data type)
+
+
+Parts
+- foundation
+	- RH_IN:SideLength
+	- RH_OUT:ComponentGeo
+	- RH_OUT:ComponentInterface_Column (plane is [1 0 0] [0 1 0])
+
+- column
+	- RH_IN:Height
+	- RH_IN:SideLength
+	- RH_in:ConsoleOffset (must equal corresponding beam heights)
+	- RH_OUT:ComponentGeo
+	- RH_OUT:ComponentInterface_Foundation (plane is [1 0 0] [0 1 0])
+	- RH_OUT:ComponentInterface_BeamXZ (plane is [0 1 0] [0 0 -1] at side with higher x)
+	- RH_OUT:ComponentInterface_BeamYZ (plane is [1 0 0] [0 0 1] at side with higher y)
+	- RH_OUT:ComponentInterface_Deck (plane is [1 0 0] [0 1 0])
+	
+- beam
+	- RH_IN:Length
+	- RH_IN:Width
+	- RH_IN:Height
+	- RH_OUT:ComponentGeo
+	- RH_OUT:ComponentInterface_RearerColumn (plane is [1 0 0] [0 0 1], i.e. xz-parallel at the Stirnseite of the beam)
+	- RH_OUT:ComponentInterface_CloserColumn (same plane, but translated)
+
+- deck
+	- RH_IN:ColumnThickness
+	- RH_IN:XExtension
+	- RH_IN:YExtension
+	- RH_IN:ZExtension
+	- RH_OUT:ComponentGeo
+	- RH_OUT:ComponentInterface_ToAnyBottomColumn (only 1 for now with plane [1 0 0] [0 -1 0]. For completeness this should maybe be four that get occupied at a single rewriting step)
+	- RH_OUT:ComponentInterface_ToTopColumns (bottom left interface is [1 0 0] [0 1 0], then the 3 others at the corner follow which are 90 ° cw z-wise rotated to place columns at top correctly)
+	
+- Dependencies of parameters
+	- RH_IN:Height(Column) and RH_IN:Z_extension(deck) need to be coordinated, depending on a global storey_height_variable
+	- RH_IN:ConsoleOffset(Column) and RH_IN:Height(beam) need to be coordinated, only depending on each other
+	- RH:IN:Thickness(Column), RH_IN:Length(Beam), RH:IN:XExtension(Deck) and RH:IN:YExtension(Deck) need to be set/coordinated depending on global field_height and field_width variable
+
+
+
