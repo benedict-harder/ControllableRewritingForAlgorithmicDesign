@@ -41,29 +41,36 @@ namespace SkeletonCaseStudy
                 column);
 
             //changed the rule to simply mention "beam" and "column" - but this cannot handle e.g. two interfaces to beams for one column at the moment.. 
-            RuleDefinition beamOnColumnConsole = new RuleDefinition(
-                "BeamOnColumnConsole",
+            RuleDefinition beamOnColumnConsole1 = new RuleDefinition(
+                "BeamOnColumnConsole1",
                 column,
-                column.Connections.Where(c => c.Name == "Beam").First(),
-                beam.Connections.Where(c => c.Name == "Column").First(),
+                column.Connections.Where(c => c.Name.StartsWith("Beam")).First(),
+                beam.Connections.Where(c => c.Name.StartsWith("Column")).First(),
+                beam);
+
+            RuleDefinition beamOnColumnConsole2 = new RuleDefinition(
+                "BeamOnColumnConsole2",
+                column,
+                column.Connections.Where(c => c.Name.StartsWith("Beam")).Last(),
+                beam.Connections.Where(c => c.Name.StartsWith("Column")).First(),
                 beam);
 
             RuleDefinition deckOnColumn = new RuleDefinition(
                 "DeckOnColumn",
                 column,
                 column.Connections.Where(c => c.Name == "Deck").First(),
-                deck.Connections.Where(c => c.Name == "ToAnyBottomColumn").First(),
+                deck.Connections.Where(c => c.Name.StartsWith("Column")).First(),
                 deck);
 
             RuleDefinition columnOnDeck = new RuleDefinition(
                 "ColumnOnDeck",
                 deck,
-                deck.Connections.Where(c => c.Name == "ToTopColumns").First(),
+                deck.Connections.Where(c => c.Name.StartsWith("Column")).First(),
                 column.Connections.Where(c => c.Name == "Foundation").First(),
                 column);
 
             RuleCatalogue rules = new RuleCatalogue(
-                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole, deckOnColumn, columnOnDeck },
+                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole1, beamOnColumnConsole2, deckOnColumn, columnOnDeck },
                  new List<Part> { foundation, column, beam, deck });
             #endregion RuleDefinition
 
@@ -100,8 +107,11 @@ namespace SkeletonCaseStudy
             skeletonProcessModel.DesignGraph.SerializeToThreeDm(1); 
 
             //this rule is applied correctly now, there was a 
-            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole);
+            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole1);
             skeletonProcessModel.DesignGraph.SerializeToThreeDm(2);
+
+            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole2);
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(3);
         }
 
 

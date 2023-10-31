@@ -99,10 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ProcessModelSpecification\GhDefinitionFiles\beam.ghx" />
-    <None Include="ProcessModelSpecification\GhDefinitionFiles\column.ghx" />
-    <None Include="ProcessModelSpecification\GhDefinitionFiles\deck.ghx" />
-    <None Include="ProcessModelSpecification\GhDefinitionFiles\foundation.ghx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +110,6 @@
       <Project>{34a8a265-cb2a-4591-a5e6-6f1bb1cf91b8}</Project>
       <Name>GrammarMetaModel</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ProcessModelSpecification\GhDefinitionFiles\SummaryOfCatalogue.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ThreeDmModelsGenerated\" />
