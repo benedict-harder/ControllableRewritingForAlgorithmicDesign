@@ -33,10 +33,12 @@ namespace GrammarMetaModel
         {
             Tuple<Mesh, List<Plane>> ComponentAndInterfaceGeos = ResthopperBridge.EvaluateDefinition(part.GhDefinitionFullPath, part.Parameters);
             Component component = new Component(part, ComponentAndInterfaceGeos.Item1);
+            int i = 0;
             foreach (Plane interfaceGeo in ComponentAndInterfaceGeos.Item2)
             {
-                ComponentInterface componentInterface = new ComponentInterface(part.Connections.First(), component, interfaceGeo);
+                ComponentInterface componentInterface = new ComponentInterface(part.Connections.ElementAt(i), component, interfaceGeo);
                 component.AddConnection(componentInterface);
+                i++;
             }
 
             return component;
@@ -48,9 +50,10 @@ namespace GrammarMetaModel
         /// </summary>
         public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface)
         {
-            //create the component from the part with right geometry
+            //create the component from the part with concrete geometry
             Component newlyAddedComponent = CreateComponentInGlobalOrigin(newPartInterface.ParentPart);
             designGraph.AggregatedModules.Add(newlyAddedComponent);
+
             ComponentInterface newComponentInterface = newlyAddedComponent.ComponentInterfaces.Where(ci => ci.TemplateInterface == newPartInterface).First();
             newlyAddedComponent.TransformPlaneToPlane(existingInterfaceToConnectTo, newComponentInterface);
 

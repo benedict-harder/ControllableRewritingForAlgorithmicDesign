@@ -20,10 +20,20 @@ namespace GrammarMetaModel
         /// </summary>
         public RuleMatchingResult(Assembly designGraph, RuleDefinition rule)
         {
-            List<ComponentInterface> potentialInterfacesToAttachTo = new List<ComponentInterface>();
-            potentialInterfacesToAttachTo = designGraph.GetAllOpenInterfaces();
-            potentialInterfacesToAttachTo.Where(i => i.TemplateInterface == rule.LhsModuleInterface);
-            Matches = potentialInterfacesToAttachTo;
+            //Get all open interfaces
+            List<ComponentInterface> potentialInterfacesToAttachTo = designGraph.GetAllOpenInterfaces();
+
+            //filter to those interfaces that match the lhs of the rule
+            List<ComponentInterface> validInterfacesToAttachTo = new List<ComponentInterface>();
+            foreach (ComponentInterface potentialInterface in potentialInterfacesToAttachTo)
+            {
+                if (rule.LhsModule == potentialInterface.ParentComponent.ComponentTemplate && rule.LhsModuleInterface == potentialInterface.TemplateInterface)
+                {
+                    validInterfacesToAttachTo.Add(potentialInterface);
+                }
+            }
+
+            Matches = validInterfacesToAttachTo;
         }
 
 

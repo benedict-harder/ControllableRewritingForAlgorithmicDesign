@@ -99,10 +99,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="GhDefinitionFiles\beam.ghx" />
-    <None Include="GhDefinitionFiles\column.ghx" />
-    <None Include="GhDefinitionFiles\deck.ghx" />
-    <None Include="GhDefinitionFiles\foundation.ghx" />
+    <None Include="ProcessModelSpecification\GhDefinitionFiles\beam.ghx" />
+    <None Include="ProcessModelSpecification\GhDefinitionFiles\column.ghx" />
+    <None Include="ProcessModelSpecification\GhDefinitionFiles\deck.ghx" />
+    <None Include="ProcessModelSpecification\GhDefinitionFiles\foundation.ghx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +116,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GhDefinitionFiles\SummaryOfCatalogue.txt" />
+    <Content Include="ProcessModelSpecification\GhDefinitionFiles\SummaryOfCatalogue.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ThreeDmModelsGenerated\" />

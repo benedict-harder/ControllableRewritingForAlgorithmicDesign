@@ -40,18 +40,12 @@ namespace SkeletonCaseStudy
                 column.Connections.Where(c => c.Name == "Foundation").First(),
                 column);
 
-            RuleDefinition beamOnColumnConsoleYZ = new RuleDefinition(
-                "BeamOnColumnConsoleYZ",
+            //changed the rule to simply mention "beam" and "column" - but this cannot handle e.g. two interfaces to beams for one column at the moment.. 
+            RuleDefinition beamOnColumnConsole = new RuleDefinition(
+                "BeamOnColumnConsole",
                 column,
-                column.Connections.Where(c => c.Name == "BeamYZ").First(),
-                beam.Connections.Where(c => c.Name == "CloserColumn").First(),
-                beam);
-
-            RuleDefinition beamOnColumnConsoleXZ = new RuleDefinition(
-                "BeamOnColumnConsoleXZ",
-                column,
-                column.Connections.Where(c => c.Name == "BeamXZ").First(),
-                beam.Connections.Where(c => c.Name == "RearerColumn").First(),
+                column.Connections.Where(c => c.Name == "Beam").First(),
+                beam.Connections.Where(c => c.Name == "Column").First(),
                 beam);
 
             RuleDefinition deckOnColumn = new RuleDefinition(
@@ -69,7 +63,7 @@ namespace SkeletonCaseStudy
                 column);
 
             RuleCatalogue rules = new RuleCatalogue(
-                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsoleYZ, beamOnColumnConsoleXZ, deckOnColumn, columnOnDeck },
+                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole, deckOnColumn, columnOnDeck },
                  new List<Part> { foundation, column, beam, deck });
             #endregion RuleDefinition
 
@@ -80,7 +74,7 @@ namespace SkeletonCaseStudy
             // start symbol setup 
             Rectangle3d dummyPlot = new Rectangle3d(Plane.WorldXY, new Point3d(0.0, 0.0, -3.0), new Point3d(10.0, 14.0, -3.0));
             CustomisationSettings projectParameters = new CustomisationSettings();
-            projectParameters.Parameters["NumberOfFields"] =  1.0;
+            projectParameters.Parameters["NumberOfFields"] = 1.0;
             projectParameters.Parameters["NumberOfStoreys"] = 1.0;
             projectParameters.Parameters["StoreyHeight"] = 3.5;
 
@@ -93,21 +87,24 @@ namespace SkeletonCaseStudy
             #endregion ProcessModelSetup
 
 
-            // The execution of a valid process model should be straightforward, with the possibility to export intermediary design model states.
-            #region ProcessModelExecution
-            //execution of process model
-            bool endStateNotReached = true;
-            int i = 0;
-            while (endStateNotReached)
-            {
-                endStateNotReached = skeletonProcessModel.MakeStep();
-                skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
-                i++;
-            }
-            #endregion ProcessModelExecution
+            //execution to find error when assembling the beam
+            //trying whether the components get generated correctly
+            Component test1 = RewritingHandler.CreateComponentInGlobalOrigin(column); //in this state, there are three interfaces(one beam-interface lacking)  with correct names and geos
+            Component test2 = RewritingHandler.CreateComponentInGlobalOrigin(beam); //in this state, there is one interface (a second one lacking) with correct name and geo
 
 
+            skeletonProcessModel.MakeStep();
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
+            skeletonProcessModel.MakeStep();
+            skeletonProcessModel.MakeStep(); // i changed the planning state to now assemble only one column
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(1); 
+
+            //this rule is applied correctly now, there was a 
+            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole);
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(2);
         }
+
+
     }
 }
 

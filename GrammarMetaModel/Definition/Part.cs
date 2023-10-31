@@ -26,7 +26,7 @@ namespace GrammarMetaModel
         public Part(string name, string ghDefinitionFileName)
         {
             Name = name;
-            GhDefinitionFullPath = @"C:\Users\ga24nix\source\repos\ControlledBridgeGrammar\SkeletonCaseStudy\GhDefinitionFiles\"+ghDefinitionFileName;
+            GhDefinitionFullPath = @"C:\Users\lotha\source\repos\ControllableRewritingForAlgorithmicDesign\SkeletonCaseStudy\GhDefinitionFiles\" + ghDefinitionFileName;
             Parameters = this.LoadInputParams();
             List<string> interfaceNames = this.LoadInterfaces();
             foreach (string interfaceName in interfaceNames) 

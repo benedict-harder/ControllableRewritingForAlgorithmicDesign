@@ -67,7 +67,7 @@ namespace GrammarMetaModel
                 }
                 plottedComponents.Add(component);
             }
-            string path = string.Format(@"C:\Users\ga24nix\source\repos\ControlledBridgeGrammar\SkeletonCaseStudy\ThreeDmModelsGenerated\testModel{0}.3dm", fileIndex);
+            string path = string.Format(@"C:\Users\lotha\source\repos\ControllableRewritingForAlgorithmicDesign\SkeletonCaseStudy\ThreeDmModelsGenerated\testModel{0}.3dm", fileIndex);
             outputFile.Write(path, 0);
             return true;
         }

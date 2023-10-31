@@ -21,17 +21,12 @@ namespace SkeletonCaseStudy
         {
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
 
-            double numberOfFields = 0;
-            this.ProjectParameters.Parameters.TryGetValue("NumberOfFields", out numberOfFields);
-            if ((int)numberOfFields == 1)
-            {
-                //set four rules of column placement
-                rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
-                rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
-                rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
-                rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
-                //note: you (@Bene) may think about a concept to abbreviate such repetitive pattern definitions
-            }
+            //set four rules of column placement
+            rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
+            //rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
+            //rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
+            //rulesToBeExecuted.Add(AvailableRules.Rules.Where(r => r.Name == "ColumnOnFoundation").First());
+            //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
 
                 

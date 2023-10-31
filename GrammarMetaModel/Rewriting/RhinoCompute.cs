@@ -10,9 +10,6 @@ using System.Runtime.Serialization;
 
 namespace Rhino.Compute
 {
-    /// <summary>
-    /// just imported to have the configuration right on the local computer
-    /// </summary>
     public static class ComputeServer
     {
         public static string WebAddress { get; set; } = "https://compute.rhino3d.com";

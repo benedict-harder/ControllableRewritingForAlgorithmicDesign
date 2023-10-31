@@ -30,10 +30,9 @@ namespace AlgorithmMetaModel
             {
 
                 //adjusting the part parameters for the part
-                Dictionary<string, double> ParameterSet = PartParametersForRuleApplication.ElementAt(i);
-
-                if (ParameterSet.Count>0)
+                if (PartParametersForRuleApplication.Count>0)
                 {
+                    Dictionary<string, double> ParameterSet = PartParametersForRuleApplication.ElementAt(i);
                     Part correspondingPart = rule.RhsModule;
                     foreach (KeyValuePair<string, double> keyVal in ParameterSet)
                     {
