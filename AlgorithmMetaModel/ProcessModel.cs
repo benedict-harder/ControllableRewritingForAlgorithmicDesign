@@ -42,7 +42,7 @@ namespace AlgorithmMetaModel
             States.Add(planningState);
             planningState.DesignGraph = DesignGraph;
             planningState.NextState = assemblingState;
-            States.Add(planningState);
+            States.Add(assemblingState);
             assemblingState.DesignGraph = DesignGraph;
             assemblingState.NextState = null;
         }
