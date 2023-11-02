@@ -29,6 +29,7 @@ namespace GrammarMetaModel
             IsPlaceholder = false;
         }
 
+        
         //constructor for placeholder until another component gets attached
         public ComponentInterface()
         {
@@ -60,7 +61,7 @@ namespace GrammarMetaModel
         public void TransformInterface(Transform transformation)
         {
             Plane tmpPlane = ConnectionPlane;
-            ConnectionPlane.Transform(transformation);
+            tmpPlane.Transform(transformation);
             ConnectionPlane = tmpPlane;
         }
 
