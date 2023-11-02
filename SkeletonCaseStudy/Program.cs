@@ -79,12 +79,13 @@ namespace SkeletonCaseStudy
             // Further types of states and non-linear things (like parallel/ if-else tracks) can be imagined)
             #region ProcessModelSetup
             // start symbol setup 
-            Rectangle3d dummyPlot = new Rectangle3d(Plane.WorldXY, new Point3d(0.0, 0.0, -3.0), new Point3d(10.0, 10.0, -3.0));
             CustomisationSettings projectParameters = new CustomisationSettings();
             projectParameters.Parameters["NumberOfFields"] = 1.0;
             projectParameters.Parameters["NumberOfStoreys"] = 1.0;
             projectParameters.Parameters["StoreyHeight"] = 3.5;
             projectParameters.Parameters["BeamLength"] = 9.7;
+            projectParameters.Parameters["FieldLength"] = 10.0;
+            Rectangle3d dummyPlot = new Rectangle3d(Plane.WorldXY, new Point3d(0.0, 0.0, -3.0), new Point3d(projectParameters.Parameters["FieldLength"], projectParameters.Parameters["FieldLength"], -3.0));
 
             //// process model
             ProcessModel skeletonProcessModel = new ProcessModel(rules);
@@ -96,6 +97,12 @@ namespace SkeletonCaseStudy
             PlanningStateBeams planningBeams = new PlanningStateBeams(rules, projectParameters);
             AssemblingState assemmblingBeams = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
+
+            PlanningStateBasementDeck planningDeck = new PlanningStateBasementDeck(rules, projectParameters);
+            AssemblingState assemblingDeck = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
+
+
             #endregion ProcessModelSetup
 
             bool endStateNotReached = true;

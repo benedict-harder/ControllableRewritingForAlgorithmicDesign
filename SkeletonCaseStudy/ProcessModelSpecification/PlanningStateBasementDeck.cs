@@ -13,19 +13,16 @@ namespace SkeletonCaseStudy
     /// Example of how to specify the abstract planning state and fundamentally specify which rules to apply with a specified parameter
     /// The complexity will certainly rise for more complex algorithmic design problems
     /// </summary>
-    public class PlanningStateBeams : PlanningState
+    public class PlanningStateBasementDeck : PlanningState
     {
-        public PlanningStateBeams(RuleCatalogue availableRules, CustomisationSettings projectParameters) : base(availableRules, projectParameters) { }
+        public PlanningStateBasementDeck(RuleCatalogue availableRules, CustomisationSettings projectParameters) : base(availableRules, projectParameters) { }
 
         public override List<RuleDefinition> DefineSequenceOfRuleApplications()
         {
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
 
             //set four rules of column placement
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole2"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "DeckOnColumn"));
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
 
@@ -38,8 +35,9 @@ namespace SkeletonCaseStudy
             foreach (RuleDefinition rule in this.RulesToBeExecuted)
             {
                 Dictionary<string, double> specifiedPartParams = new Dictionary<string, double>();
-                double length = this.ProjectParameters.GetParameterValue("BeamLength");
-                specifiedPartParams["RH_IN:Length"] = length;
+                double length = this.ProjectParameters.GetParameterValue("FieldLength");
+                specifiedPartParams["RH_IN:XExtension"] = length;
+                specifiedPartParams["RH_IN:YExtension"] = length;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
             }
             return partParameters;
