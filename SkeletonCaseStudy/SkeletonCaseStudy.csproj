@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProcessModelSpecification\PlanningStateBasementColumns.cs" />
+    <Compile Include="ProcessModelSpecification\PlanningStateBeams.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProcessModelSpecification\StartStateSkeleton.cs" />

@@ -84,6 +84,7 @@ namespace SkeletonCaseStudy
             projectParameters.Parameters["NumberOfFields"] = 1.0;
             projectParameters.Parameters["NumberOfStoreys"] = 1.0;
             projectParameters.Parameters["StoreyHeight"] = 3.5;
+            projectParameters.Parameters["BeamLength"] = 9.7;
 
             //// process model
             ProcessModel skeletonProcessModel = new ProcessModel(rules);
@@ -91,33 +92,21 @@ namespace SkeletonCaseStudy
             PlanningStateBasementColumns planningColumnAssembly = new PlanningStateBasementColumns(rules, projectParameters);
             AssemblingState assemblingColumns = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumnAssembly, assemblingColumns);
+
+            PlanningStateBeams planningBeams = new PlanningStateBeams(rules, projectParameters);
+            AssemblingState assemmblingBeams = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
             #endregion ProcessModelSetup
 
+            bool endStateNotReached = true;
+            int i = 0;
+            while (endStateNotReached)
+            {
+                endStateNotReached = skeletonProcessModel.MakeStep();
+                skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
+                i++;
+            }
 
-            //execution to find error when assembling the beam
-            //trying whether the components get generated correctly
-            //Component test1 = RewritingHandler.CreateComponentInGlobalOrigin(column); //in this state, there are three interfaces(one beam-interface lacking)  with correct names and geos
-            //Component test2 = RewritingHandler.CreateComponentInGlobalOrigin(beam); //in this state, there is one interface (a second one lacking) with correct name and geo
-
-
-            skeletonProcessModel.MakeStep();
-            //skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
-            skeletonProcessModel.MakeStep();
-            skeletonProcessModel.MakeStep(); // i changed the planning state to now assemble only one column
-            //skeletonProcessModel.DesignGraph.SerializeToThreeDm(1); 
-
-            //this rule is applied correctly now, there was a 
-            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole1);
-            skeletonProcessModel.DesignGraph.SerializeToThreeDm(2);
-
-            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole2);
-            skeletonProcessModel.DesignGraph.SerializeToThreeDm(3);
-
-            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole1);
-            skeletonProcessModel.DesignGraph.SerializeToThreeDm(4);
-
-            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole2);
-            skeletonProcessModel.DesignGraph.SerializeToThreeDm(5);
         }
     }
 }
