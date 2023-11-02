@@ -20,7 +20,7 @@ namespace GrammarMetaModel
         public static Assembly ApplyRule(Assembly assemblyToBeProcessed, RuleDefinition rule)
         {
             RuleMatchingResult matches = new RuleMatchingResult(assemblyToBeProcessed, rule);
-            Assembly processedAssembly = ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface);
+            Assembly processedAssembly = ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, rule);
 
             return assemblyToBeProcessed;
         }
@@ -48,7 +48,7 @@ namespace GrammarMetaModel
         /// <summary>
         ///  Creates the new component, transforms it in place and processes the design graph
         /// </summary>
-        public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface)
+        public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface, RuleDefinition rule)
         {
             //create the component from the part with concrete geometry
             Component newlyAddedComponent = CreateComponentInGlobalOrigin(newPartInterface.ParentPart);
@@ -63,10 +63,26 @@ namespace GrammarMetaModel
 
 
             //a beam may close two (column console) interfaces at the same time - so we should loop through the others to check for collisions
-            bool checkConnectionsClosedAtTheSameTime = false; 
+            bool checkConnectionsClosedAtTheSameTime = true; 
             if (checkConnectionsClosedAtTheSameTime)
             {
-                throw new NotImplementedException(); //tbd
+                foreach (Component module in designGraph.AggregatedModules)
+                { 
+                    if (module.ComponentTemplate == rule.LhsModule)
+                    {
+                        foreach (ComponentInterface iface in module.ComponentInterfaces)
+                        {
+                            foreach (ComponentInterface jface in newlyAddedComponent.ComponentInterfaces)
+                            {
+                                if (iface.ConnectionPlane == jface.ConnectionPlane)
+                                {
+                                    jface.OtherConnection = iface;
+                                    iface.OtherConnection = jface;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             return designGraph;

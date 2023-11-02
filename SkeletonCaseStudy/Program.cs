@@ -79,7 +79,7 @@ namespace SkeletonCaseStudy
             // Further types of states and non-linear things (like parallel/ if-else tracks) can be imagined)
             #region ProcessModelSetup
             // start symbol setup 
-            Rectangle3d dummyPlot = new Rectangle3d(Plane.WorldXY, new Point3d(0.0, 0.0, -3.0), new Point3d(10.0, 14.0, -3.0));
+            Rectangle3d dummyPlot = new Rectangle3d(Plane.WorldXY, new Point3d(0.0, 0.0, -3.0), new Point3d(10.0, 10.0, -3.0));
             CustomisationSettings projectParameters = new CustomisationSettings();
             projectParameters.Parameters["NumberOfFields"] = 1.0;
             projectParameters.Parameters["NumberOfStoreys"] = 1.0;
@@ -96,15 +96,15 @@ namespace SkeletonCaseStudy
 
             //execution to find error when assembling the beam
             //trying whether the components get generated correctly
-            Component test1 = RewritingHandler.CreateComponentInGlobalOrigin(column); //in this state, there are three interfaces(one beam-interface lacking)  with correct names and geos
-            Component test2 = RewritingHandler.CreateComponentInGlobalOrigin(beam); //in this state, there is one interface (a second one lacking) with correct name and geo
+            //Component test1 = RewritingHandler.CreateComponentInGlobalOrigin(column); //in this state, there are three interfaces(one beam-interface lacking)  with correct names and geos
+            //Component test2 = RewritingHandler.CreateComponentInGlobalOrigin(beam); //in this state, there is one interface (a second one lacking) with correct name and geo
 
 
             skeletonProcessModel.MakeStep();
-            skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
+            //skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
             skeletonProcessModel.MakeStep();
             skeletonProcessModel.MakeStep(); // i changed the planning state to now assemble only one column
-            skeletonProcessModel.DesignGraph.SerializeToThreeDm(1); 
+            //skeletonProcessModel.DesignGraph.SerializeToThreeDm(1); 
 
             //this rule is applied correctly now, there was a 
             RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole1);
@@ -112,9 +112,13 @@ namespace SkeletonCaseStudy
 
             RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole2);
             skeletonProcessModel.DesignGraph.SerializeToThreeDm(3);
+
+            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole1);
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(4);
+
+            RewritingHandler.ApplyRule(skeletonProcessModel.DesignGraph, beamOnColumnConsole2);
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(5);
         }
-
-
     }
 }
 
