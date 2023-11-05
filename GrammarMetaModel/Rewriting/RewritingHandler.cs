@@ -64,21 +64,39 @@ namespace GrammarMetaModel
 
             //a beam may close two (column console) interfaces at the same time - so we should loop through the others to check for collisions
             bool checkConnectionsClosedAtTheSameTime = true; 
+            //if (checkConnectionsClosedAtTheSameTime)
+            //{
+            //    foreach (Component module in designGraph.AggregatedModules)
+            //    { 
+            //        if (module.ComponentTemplate == rule.LhsModule)
+            //        {
+            //            foreach (ComponentInterface iface in module.ComponentInterfaces)
+            //            {
+            //                foreach (ComponentInterface jface in newlyAddedComponent.ComponentInterfaces)
+            //                {
+            //                    if (iface.ConnectionPlane == jface.ConnectionPlane)
+            //                    {
+            //                        jface.OtherConnection = iface;
+            //                        iface.OtherConnection = jface;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
             if (checkConnectionsClosedAtTheSameTime)
             {
-                foreach (Component module in designGraph.AggregatedModules)
-                { 
-                    if (module.ComponentTemplate == rule.LhsModule)
+                foreach (ComponentInterface iface in designGraph.GetAllOpenInterfaces())
+                {
+                    if (iface.ParentComponent.ComponentTemplate == rule.LhsModule)
                     {
-                        foreach (ComponentInterface iface in module.ComponentInterfaces)
+                        foreach (ComponentInterface jface in newlyAddedComponent.ComponentInterfaces)
                         {
-                            foreach (ComponentInterface jface in newlyAddedComponent.ComponentInterfaces)
+                            if (iface.ConnectionPlane == jface.ConnectionPlane)
                             {
-                                if (iface.ConnectionPlane == jface.ConnectionPlane)
-                                {
-                                    jface.OtherConnection = iface;
-                                    iface.OtherConnection = jface;
-                                }
+                                jface.OtherConnection = iface;
+                                iface.OtherConnection = jface;
                             }
                         }
                     }
