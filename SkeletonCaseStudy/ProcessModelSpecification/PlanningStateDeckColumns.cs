@@ -13,21 +13,23 @@ namespace SkeletonCaseStudy
     /// Example of how to specify the abstract planning state and fundamentally specify which rules to apply with a specified parameter
     /// The complexity will certainly rise for more complex algorithmic design problems
     /// </summary>
-    public class PlanningStateBeams : PlanningState
+    public class PlanningStateDeckColumns : PlanningState
     {
-        public PlanningStateBeams(RuleCatalogue availableRules, CustomisationSettings projectParameters) : base(availableRules, projectParameters) { }
+        public PlanningStateDeckColumns(RuleCatalogue availableRules, CustomisationSettings projectParameters) : base(availableRules, projectParameters) { }
 
         public override List<RuleDefinition> DefineSequenceOfRuleApplications()
         {
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
 
             //set four rules of column placement
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole2"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
+
+
         }
 
         public override List<Dictionary<string, double>> DefinePartParameters()
@@ -36,8 +38,8 @@ namespace SkeletonCaseStudy
             foreach (RuleDefinition rule in this.RulesToBeExecuted)
             {
                 Dictionary<string, double> specifiedPartParams = new Dictionary<string, double>();
-                double length = ProjectParameters.GetParameterValue("BeamLength");
-                specifiedPartParams["RH_IN:Length"] = length;
+                double storeyHeight = this.ProjectParameters.GetParameterValue("StoreyHeight");
+                specifiedPartParams["RH_IN:Height"] = storeyHeight; //set column height
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
             }
             return partParameters;

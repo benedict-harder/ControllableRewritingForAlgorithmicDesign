@@ -65,7 +65,7 @@ namespace SkeletonCaseStudy
             RuleDefinition columnOnDeck = new RuleDefinition(
                 "ColumnOnDeck",
                 deck,
-                deck.Connections.Where(c => c.Name.StartsWith("Column")).First(),
+                deck.Connections.Where(c => c.Name.StartsWith("TopColumn")).First(),
                 column.Connections.Where(c => c.Name == "Foundation").First(),
                 column);
 
@@ -102,17 +102,22 @@ namespace SkeletonCaseStudy
             AssemblingState assemblingDeck = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
 
+            PlanningStateDeckColumns planningDeckColumns = new PlanningStateDeckColumns(rules, projectParameters);
+            AssemblingState assemblingDeckColumns = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeckColumns, assemblingDeckColumns);
 
             #endregion ProcessModelSetup
 
             bool endStateNotReached = true;
-            int i = 0;
+            //int i = 0;
             while (endStateNotReached)
             {
                 endStateNotReached = skeletonProcessModel.MakeStep();
-                skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
-                i++;
+                //skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
+                //i++;
             }
+
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
 
         }
     }
