@@ -65,9 +65,10 @@ namespace SkeletonCaseStudy
             RuleDefinition columnOnDeck = new RuleDefinition(
                 "ColumnOnDeck",
                 deck,
-                deck.Connections.Where(c => c.Name.StartsWith("TopColumn")).First(),
+                (List<PartInterface>)deck.Connections.Where(c => c.Name.StartsWith("TopColumn")).ToList(),
                 column.Connections.Where(c => c.Name == "Foundation").First(),
                 column);
+
 
             RuleCatalogue rules = new RuleCatalogue(
                 "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole1, beamOnColumnConsole2, deckOnColumn, columnOnDeck },
