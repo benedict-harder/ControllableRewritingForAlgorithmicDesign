@@ -22,10 +22,10 @@ namespace SkeletonCaseStudy
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
 
             //set four rules of column placement
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck1"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck3"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck4"));
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
 
@@ -44,6 +44,5 @@ namespace SkeletonCaseStudy
             }
             return partParameters;
         }
-
     }
 }

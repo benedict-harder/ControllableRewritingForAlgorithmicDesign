@@ -26,31 +26,13 @@ namespace GrammarMetaModel
             //filter to those interfaces that match the lhs of the rule
             List<ComponentInterface> validInterfacesToAttachTo = new List<ComponentInterface>();
 
-            if (rule.LhsModuleInterfaceList == null) 
+            foreach (ComponentInterface potentialInterface in potentialInterfacesToAttachTo)
             {
-                foreach (ComponentInterface potentialInterface in potentialInterfacesToAttachTo)
+                if (rule.LhsModule == potentialInterface.ParentComponent.ComponentTemplate && rule.LhsModuleInterface == potentialInterface.TemplateInterface)
                 {
-                    if (rule.LhsModule == potentialInterface.ParentComponent.ComponentTemplate && rule.LhsModuleInterface == potentialInterface.TemplateInterface)
-                    {
-                        validInterfacesToAttachTo.Add(potentialInterface);
-                    }
+                    validInterfacesToAttachTo.Add(potentialInterface);
                 }
             }
-            else
-            {
-                foreach (ComponentInterface potentialInterface in potentialInterfacesToAttachTo)
-                {
-                    foreach (PartInterface lhsModuleInterface in rule.LhsModuleInterfaceList)
-                    {
-                        if (rule.LhsModule == potentialInterface.ParentComponent.ComponentTemplate && lhsModuleInterface == potentialInterface.TemplateInterface)
-                        {
-                            validInterfacesToAttachTo.Add(potentialInterface);
-                        }
-                    }
-                }
-            }
-            
-
             Matches = validInterfacesToAttachTo;
         }
 

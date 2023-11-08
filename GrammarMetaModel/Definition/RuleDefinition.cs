@@ -11,7 +11,7 @@ namespace GrammarMetaModel
         public string Name;
         public Part LhsModule;
         public PartInterface LhsModuleInterface;
-        public List<PartInterface> LhsModuleInterfaceList;
+        //public List<PartInterface> LhsModuleInterfaceList;
         public PartInterface RhsModuleInterface;
         public Part RhsModule;
 
@@ -20,29 +20,29 @@ namespace GrammarMetaModel
             Name = name;
             LhsModule = lhsModule;
             LhsModuleInterface = lhsModuleInterface;
-            LhsModuleInterfaceList = null;
+            //LhsModuleInterfaceList = null;
             RhsModuleInterface = rhsModuleInterface;
             RhsModule = rhsModule;
         }
 
-        //public RuleDefinition(string name, Part lhsModule, PartInterface lhsModuleInterface, PartInterface rhsModuleInterface, Part rhsModule, List<string> paramValues)
-        //{
-        //    Name = name;
-        //    LhsModule = lhsModule;
-        //    LhsModuleInterface = lhsModuleInterface;
-        //    RhsModuleInterface = rhsModuleInterface;
-        //    RhsModule = rhsModule;
-        //}
-
-        public RuleDefinition(string name, Part lhsModule, List<PartInterface> lhsModuleInterfaces, PartInterface rhsModuleInterface, Part rhsModule)
+        public RuleDefinition(string name, Part lhsModule, PartInterface lhsModuleInterface, PartInterface rhsModuleInterface, Part rhsModule, List<string> paramValues)
         {
             Name = name;
             LhsModule = lhsModule;
-            LhsModuleInterfaceList = lhsModuleInterfaces;
-            LhsModuleInterface = null;
+            LhsModuleInterface = lhsModuleInterface;
             RhsModuleInterface = rhsModuleInterface;
             RhsModule = rhsModule;
         }
+
+        //public RuleDefinition(string name, Part lhsModule, List<PartInterface> lhsModuleInterfaces, PartInterface rhsModuleInterface, Part rhsModule)
+        //{
+        //    Name = name;
+        //    LhsModule = lhsModule;
+        //    LhsModuleInterfaceList = lhsModuleInterfaces;
+        //    LhsModuleInterface = null;
+        //    RhsModuleInterface = rhsModuleInterface;
+        //    RhsModule = rhsModule;
+        //}
 
     }
 }
