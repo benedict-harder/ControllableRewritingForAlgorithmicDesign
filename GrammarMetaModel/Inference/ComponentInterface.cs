@@ -78,5 +78,13 @@ namespace GrammarMetaModel
             return flippedYPlane;
         }
 
+        public void roundToTwoDecimals()
+        {
+            Plane tmpPlane = ConnectionPlane;
+            tmpPlane.OriginX = Math.Round(tmpPlane.OriginX, 2);
+            tmpPlane.OriginY = Math.Round(tmpPlane.OriginY, 2);
+            tmpPlane.OriginZ = Math.Round(tmpPlane.OriginZ, 2);
+            ConnectionPlane = tmpPlane;
+        }
     }
 }

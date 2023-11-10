@@ -57,6 +57,11 @@ namespace GrammarMetaModel
             ComponentInterface newComponentInterface = newlyAddedComponent.ComponentInterfaces.Where(ci => ci.TemplateInterface == newPartInterface).First();
             newlyAddedComponent.TransformPlaneToPlane(existingInterfaceToConnectTo, newComponentInterface);
 
+            foreach (ComponentInterface componentInterface in newlyAddedComponent.ComponentInterfaces)
+            {
+                componentInterface.roundToTwoDecimals();
+            }
+
             //Create the right topological links, also checking whether the other interfaces of the new component coincide with open interfaces in the assembly 
             existingInterfaceToConnectTo.OtherConnection = newComponentInterface;
             newComponentInterface.OtherConnection = existingInterfaceToConnectTo;
