@@ -62,13 +62,6 @@ namespace SkeletonCaseStudy
                 deck.Connections.Where(c => c.Name.StartsWith("Column")).First(),
                 deck);
 
-            //RuleDefinition columnOnDeck = new RuleDefinition(
-            //    "ColumnOnDeck",
-            //    deck,
-            //    (List<PartInterface>)deck.Connections.Where(c => c.Name.StartsWith("TopColumn")).ToList(),
-            //    column.Connections.Where(c => c.Name == "Foundation").First(),
-            //    column);
-
             RuleDefinition columnOnDeck1 = new RuleDefinition(
                 "ColumnOnDeck1",
                 deck,
@@ -119,6 +112,7 @@ namespace SkeletonCaseStudy
             //// process model
             ProcessModel skeletonProcessModel = new ProcessModel(rules);
             skeletonProcessModel.AddStartState(new StartStateSkeleton(dummyPlot, foundation));
+            
             PlanningStateBasementColumns planningColumnAssembly = new PlanningStateBasementColumns(rules, projectParameters);
             AssemblingState assemblingColumns = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumnAssembly, assemblingColumns);
@@ -127,13 +121,13 @@ namespace SkeletonCaseStudy
             AssemblingState assemmblingBeams = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
 
-            PlanningStateBasementDeck planningDeck = new PlanningStateBasementDeck(rules, projectParameters);
-            AssemblingState assemblingDeck = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
+            //PlanningStateBasementDeck planningDeck = new PlanningStateBasementDeck(rules, projectParameters);
+            //AssemblingState assemblingDeck = new AssemblingState();
+            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
 
-            PlanningStateDeckColumns planningDeckColumns = new PlanningStateDeckColumns(rules, projectParameters);
-            AssemblingState assemblingDeckColumns = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeckColumns, assemblingDeckColumns);
+            //PlanningStateDeckColumns planningDeckColumns = new PlanningStateDeckColumns(rules, projectParameters);
+            //AssemblingState assemblingDeckColumns = new AssemblingState();
+            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeckColumns, assemblingDeckColumns);
 
             #endregion ProcessModelSetup
 

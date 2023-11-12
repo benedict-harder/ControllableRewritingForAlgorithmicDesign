@@ -54,9 +54,9 @@ namespace GrammarMetaModel
                     //add planes as plane surfaces (normal planes are not rhino, but only GH-objects. Thus, add casted planar surfaces and a text stating the orientation of the plane.
                     PlaneSurface planeAsSurface = new PlaneSurface(componentInterface.ConnectionPlane, new Interval(-0.2, 0.2), new Interval(-0.2, 0.2));
                     objects.AddSurface(planeAsSurface);
-                    objects.AddTextDot(
-                        string.Format("plane with x-axis {0} and y-axis {1}", componentInterface.ConnectionPlane.XAxis.ToString(), componentInterface.ConnectionPlane.YAxis.ToString()),
-                        componentInterface.ConnectionPlane.Origin);
+                    //objects.AddTextDot(
+                        //string.Format("plane with x-axis {0} and y-axis {1}", componentInterface.ConnectionPlane.XAxis.ToString(), componentInterface.ConnectionPlane.YAxis.ToString()),
+                        //componentInterface.ConnectionPlane.Origin);
 
                     //add red line between midpoints of connected parts to visualise assembly graph
                     if (!componentInterface.OtherConnection.IsPlaceholder && !(plottedComponents.Contains(componentInterface.OtherConnection.ParentComponent)))

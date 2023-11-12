@@ -68,12 +68,14 @@ namespace GrammarMetaModel
 
 
             //a beam may close two (column console) interfaces at the same time - so we should loop through the others to check for collisions
-            bool checkConnectionsClosedAtTheSameTime = true; 
+            bool checkConnectionsClosedAtTheSameTime = false; 
+
             if (checkConnectionsClosedAtTheSameTime)
             {
-                foreach (ComponentInterface iface in designGraph.GetAllOpenInterfaces())
+                foreach (ComponentInterface iface in designGraph.GetAllOpenInterfaces()) 
                 {
-                    if (iface.ParentComponent.ComponentTemplate == rule.LhsModule)
+                    iface.roundToTwoDecimals();
+                    if (iface.TemplateInterface == rule.LhsModuleInterface)
                     {
                         foreach (ComponentInterface jface in newlyAddedComponent.ComponentInterfaces)
                         {
