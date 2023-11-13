@@ -35,9 +35,10 @@ namespace SkeletonCaseStudy
             foreach (RuleDefinition rule in this.RulesToBeExecuted)
             {
                 Dictionary<string, double> specifiedPartParams = new Dictionary<string, double>();
-                double length = this.ProjectParameters.GetParameterValue("FieldLength") + 0.3;
-                specifiedPartParams["RH_IN:XExtension"] = length;
-                specifiedPartParams["RH_IN:YExtension"] = length;
+                double lengthX = this.ProjectParameters.GetParameterValue("FieldLengthX") + 0.3;
+                double lengthY = this.ProjectParameters.GetParameterValue("FieldLengthY") + 0.3;
+                specifiedPartParams["RH_IN:XExtension"] = lengthX;
+                specifiedPartParams["RH_IN:YExtension"] = lengthY;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
             }
             return partParameters;

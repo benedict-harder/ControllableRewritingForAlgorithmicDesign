@@ -126,9 +126,10 @@ namespace SkeletonCaseStudy
             projectParameters.Parameters["NumberOfFields"] = 1.0;
             projectParameters.Parameters["NumberOfStoreys"] = 1.0;
             projectParameters.Parameters["StoreyHeight"] = 3.5;
-            projectParameters.Parameters["BeamLength"] = 9.7;
-            projectParameters.Parameters["FieldLength"] = 10.0;
-            Rectangle3d dummyPlot = new Rectangle3d(Plane.WorldXY, new Point3d(0.0, 0.0, -3.0), new Point3d(projectParameters.Parameters["FieldLength"], projectParameters.Parameters["FieldLength"], -3.0));
+            projectParameters.Parameters["FieldLengthX"] = 10.0;
+            projectParameters.Parameters["FieldLengthY"] = 14.0;
+            projectParameters.Parameters["ColumnWidth"] = 0.3;
+            Rectangle3d dummyPlot = new Rectangle3d(Plane.WorldXY, new Point3d(0.0, 0.0, -3.0), new Point3d(projectParameters.Parameters["FieldLengthX"], projectParameters.Parameters["FieldLengthY"], -3.0));
 
             //// process model
             ProcessModel skeletonProcessModel = new ProcessModel(rules);
@@ -157,15 +158,15 @@ namespace SkeletonCaseStudy
             #endregion ProcessModelSetup
 
             bool endStateNotReached = true;
-            //int i = 0;
+            int i = 0;
             while (endStateNotReached)
             {
                 endStateNotReached = skeletonProcessModel.MakeStep();
-                //skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
-                //i++;
+                skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
+                i++;
             }
 
-            skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
+            //skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
 
         }
     }

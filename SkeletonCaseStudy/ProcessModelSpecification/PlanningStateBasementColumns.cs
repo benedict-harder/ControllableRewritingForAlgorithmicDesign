@@ -39,7 +39,9 @@ namespace SkeletonCaseStudy
             {
                 Dictionary<string, double> specifiedPartParams = new Dictionary<string, double>();
                 double storeyHeight = this.ProjectParameters.GetParameterValue("StoreyHeight");
+                double columnWidth = ProjectParameters.GetParameterValue("ColumnWidth");
                 specifiedPartParams["RH_IN:Height"] = storeyHeight; //set column height
+                specifiedPartParams["RH_IN:SideLength"] = columnWidth;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
             }
             return partParameters;

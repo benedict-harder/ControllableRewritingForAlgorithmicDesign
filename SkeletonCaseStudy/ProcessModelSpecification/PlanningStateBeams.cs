@@ -23,9 +23,9 @@ namespace SkeletonCaseStudy
 
             //set four rules of column placement
             rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole2"));
             rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
         }
@@ -33,12 +33,18 @@ namespace SkeletonCaseStudy
         public override List<Dictionary<string, double>> DefinePartParameters()
         {
             List<Dictionary<string, double>> partParameters = new List<Dictionary<string, double>>();
+            int i = 0;
             foreach (RuleDefinition rule in this.RulesToBeExecuted)
             {
                 Dictionary<string, double> specifiedPartParams = new Dictionary<string, double>();
-                double length = ProjectParameters.GetParameterValue("BeamLength");
+                double width = ProjectParameters.GetParameterValue("ColumnWidth");
+                // alternate between fieldlengths used
+                double length = i % 2 == 0 ? ProjectParameters.GetParameterValue("FieldLengthX") - width : ProjectParameters.GetParameterValue("FieldLengthY") - width;
+
                 specifiedPartParams["RH_IN:Length"] = length;
+                specifiedPartParams["RH_IN:Width"] = width;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
+                i++;
             }
             return partParameters;
         }
