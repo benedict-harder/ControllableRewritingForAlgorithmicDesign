@@ -158,15 +158,15 @@ namespace SkeletonCaseStudy
             #endregion ProcessModelSetup
 
             bool endStateNotReached = true;
-            int i = 0;
+            //int i = 0;
             while (endStateNotReached)
             {
                 endStateNotReached = skeletonProcessModel.MakeStep();
-                skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
-                i++;
+                //skeletonProcessModel.DesignGraph.SerializeToThreeDm(i); //For planning states, this produces a 3dm file without any geometric change happening --> to be fixed
+                //i++;
             }
 
-            //skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
+            skeletonProcessModel.DesignGraph.SerializeToThreeDm(0);
 
         }
     }
