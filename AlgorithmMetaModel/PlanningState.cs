@@ -25,7 +25,7 @@ namespace AlgorithmMetaModel
             ProjectParameters = projectParameters;
         }
 
-        public override void Compute()
+        public override void Compute(RuleCatalogue avaiablesRules)
         {
             RulesToBeExecuted = DefineSequenceOfRuleApplications();
             PartParametersPerRule = DefinePartParameters();

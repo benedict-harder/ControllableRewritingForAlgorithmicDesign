@@ -17,10 +17,10 @@ namespace GrammarMetaModel
         ///  Applies a rule and returns the transformed assembly. If randomMatchIndex is set true, a random rule gets applied, otherwise the first one.
         ///  For better control, the method should be extended to be able to specify a certain component or componentInterface (or other criteria like minZ etc.) to restrict matches
         /// </summary>
-        public static Assembly ApplyRule(Assembly assemblyToBeProcessed, RuleDefinition rule)
+        public static Assembly ApplyRule(Assembly assemblyToBeProcessed, RuleDefinition rule, RuleCatalogue availableRules)
         {
             RuleMatchingResult matches = new RuleMatchingResult(assemblyToBeProcessed, rule);
-            Assembly processedAssembly = ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, rule);
+            Assembly processedAssembly = ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, availableRules);
 
             return assemblyToBeProcessed;
         }
@@ -48,7 +48,7 @@ namespace GrammarMetaModel
         /// <summary>
         ///  Creates the new component, transforms it in place and processes the design graph
         /// </summary>
-        public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface, RuleDefinition rule)
+        public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface, RuleCatalogue availableRules)
         {
             //create the component from the part with concrete geometry
             Component newlyAddedComponent = CreateComponentInGlobalOrigin(newPartInterface.ParentPart);
@@ -68,23 +68,39 @@ namespace GrammarMetaModel
 
 
             //a beam may close two (column console) interfaces at the same time - so we should loop through the others to check for collisions
-            bool checkConnectionsClosedAtTheSameTime = false; 
+            bool checkConnectionsClosedAtTheSameTime = true;
+            
+            //if (newlyAddedComponent.ComponentTemplate.Name == "beam")
+            //{
+            //    checkConnectionsClosedAtTheSameTime = true;
+            //}
 
             if (checkConnectionsClosedAtTheSameTime)
             {
                 foreach (ComponentInterface iface in designGraph.GetAllOpenInterfaces()) 
                 {
                     iface.roundToTwoDecimals();
-                    if (iface.TemplateInterface == rule.LhsModuleInterface)
+                    foreach(ComponentInterface jface in newlyAddedComponent.ComponentInterfaces.Where(ci => ci.OtherConnection.IsPlaceholder == true).ToList()) 
                     {
-                        foreach (ComponentInterface jface in newlyAddedComponent.ComponentInterfaces)
+                        if (availableRules.Rules.Any(r => r.LhsModuleInterface.Name == iface.TemplateInterface.Name && r.RhsModuleInterface.Name == jface.TemplateInterface.Name))
                         {
-                            if (iface.ConnectionPlane == jface.ConnectionPlane)
+                            if (iface.ConnectionPlane.Origin == jface.ConnectionPlane.Origin)
                             {
                                 jface.OtherConnection = iface;
                                 iface.OtherConnection = jface;
                             }
                         }
+                        //foreach (RuleDefinition rule in availableRules.Rules)
+                        //{
+                        //    if (rule.LhsModuleInterface.Name == iface.TemplateInterface.Name && rule.RhsModuleInterface.Name == jface.TemplateInterface.Name)
+                        //    {
+                        //        if (iface.ConnectionPlane.Origin == jface.ConnectionPlane.Origin)
+                        //        {
+                        //            jface.OtherConnection = iface;
+                        //            iface.OtherConnection = jface;
+                        //        }
+                        //    }
+                        //}
                     }
                 }
             }

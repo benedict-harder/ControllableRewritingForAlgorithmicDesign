@@ -18,12 +18,12 @@ namespace AlgorithmMetaModel
         public Assembly DesignGraph { get; set; }
         public List<State> States { get; set; } = new List<State>();
         public State ActiveState { get; set; }
-        public RuleCatalogue RuleCatalogue { get; set; }
+        public RuleCatalogue availableRules { get; set; }
         
 
         public ProcessModel(RuleCatalogue ruleCatalogue)
         {
-            RuleCatalogue = ruleCatalogue;
+            availableRules = ruleCatalogue;
             DesignGraph = new Assembly();
            
         }
@@ -61,7 +61,7 @@ namespace AlgorithmMetaModel
         {
             if (ActiveState != null)
             {
-                ActiveState.Compute();
+                ActiveState.Compute(availableRules);
                 ActiveState = ActiveState.NextState;
                 return true;
             }

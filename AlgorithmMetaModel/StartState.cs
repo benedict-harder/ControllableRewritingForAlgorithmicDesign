@@ -22,7 +22,7 @@ namespace AlgorithmMetaModel
             this.StartPart = startPart;
     }
 
-        public override void Compute()
+        public override void Compute(RuleCatalogue availableRules)
         {
             List<Component> startSymbol = PlaceStartSymbol();
             this.DesignGraph.AggregatedModules = startSymbol;

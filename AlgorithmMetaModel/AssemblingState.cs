@@ -23,7 +23,7 @@ namespace AlgorithmMetaModel
         }
 
 
-        public override void Compute()
+        public override void Compute(RuleCatalogue availableRules)
         {
             int i = 0;
             foreach (RuleDefinition rule in RulesToBeExecuted)
@@ -42,7 +42,7 @@ namespace AlgorithmMetaModel
                 }
                 
                 //executing the rule
-                DesignGraph = RewritingHandler.ApplyRule(DesignGraph, rule);
+                DesignGraph = RewritingHandler.ApplyRule(DesignGraph, rule, availableRules);
                 i++;
             }
 

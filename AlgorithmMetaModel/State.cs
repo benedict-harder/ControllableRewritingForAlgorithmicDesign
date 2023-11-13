@@ -16,6 +16,6 @@ namespace AlgorithmMetaModel
         public Assembly DesignGraph { get; set; }
         public State NextState { get; set; }
 
-        public abstract void Compute();
+        public abstract void Compute(RuleCatalogue avaiablesRules);
     }
 }
