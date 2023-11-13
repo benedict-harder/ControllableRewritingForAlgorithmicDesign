@@ -57,6 +57,8 @@ namespace GrammarMetaModel
             ComponentInterface newComponentInterface = newlyAddedComponent.ComponentInterfaces.Where(ci => ci.TemplateInterface == newPartInterface).First();
             newlyAddedComponent.TransformPlaneToPlane(existingInterfaceToConnectTo, newComponentInterface);
 
+            // floating point errors may occur after transformation
+            // loop through all interfaces of the new component and round the origin coordinated
             foreach (ComponentInterface componentInterface in newlyAddedComponent.ComponentInterfaces)
             {
                 componentInterface.roundToTwoDecimals();
@@ -69,38 +71,30 @@ namespace GrammarMetaModel
 
             //a beam may close two (column console) interfaces at the same time - so we should loop through the others to check for collisions
             bool checkConnectionsClosedAtTheSameTime = true;
-            
-            //if (newlyAddedComponent.ComponentTemplate.Name == "beam")
-            //{
-            //    checkConnectionsClosedAtTheSameTime = true;
-            //}
 
             if (checkConnectionsClosedAtTheSameTime)
             {
+                // loop through all open interfaces in the assembly
                 foreach (ComponentInterface iface in designGraph.GetAllOpenInterfaces()) 
                 {
+                    // get rid of floating point errors
                     iface.roundToTwoDecimals();
+                    // loop through all open interfaces of the newly added component
                     foreach(ComponentInterface jface in newlyAddedComponent.ComponentInterfaces.Where(ci => ci.OtherConnection.IsPlaceholder == true).ToList()) 
                     {
+                        // check if both the interface in the new component and the interface in the existing assembly
+                        // are part of an established rule
                         if (availableRules.Rules.Any(r => r.LhsModuleInterface.Name == iface.TemplateInterface.Name && r.RhsModuleInterface.Name == jface.TemplateInterface.Name))
                         {
+                            // check if the connection planes are "equal"
+                            // only the origin is compared to eliminate problems with plane orientation
+                            // to be determined if this is the correct approach, maybe a full comparison of the planes is actually necessary for some cases
                             if (iface.ConnectionPlane.Origin == jface.ConnectionPlane.Origin)
                             {
                                 jface.OtherConnection = iface;
                                 iface.OtherConnection = jface;
                             }
                         }
-                        //foreach (RuleDefinition rule in availableRules.Rules)
-                        //{
-                        //    if (rule.LhsModuleInterface.Name == iface.TemplateInterface.Name && rule.RhsModuleInterface.Name == jface.TemplateInterface.Name)
-                        //    {
-                        //        if (iface.ConnectionPlane.Origin == jface.ConnectionPlane.Origin)
-                        //        {
-                        //            jface.OtherConnection = iface;
-                        //            iface.OtherConnection = jface;
-                        //        }
-                        //    }
-                        //}
                     }
                 }
             }

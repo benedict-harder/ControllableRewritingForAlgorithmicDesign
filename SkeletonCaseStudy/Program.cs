@@ -146,13 +146,13 @@ namespace SkeletonCaseStudy
             AssemblingState assemblingDeck = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
 
-            PlanningStateDeckColumns planningDeckColumns = new PlanningStateDeckColumns(rules, projectParameters);
-            AssemblingState assemblingDeckColumns = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeckColumns, assemblingDeckColumns);
+            //PlanningStateDeckColumns planningDeckColumns = new PlanningStateDeckColumns(rules, projectParameters);
+            //AssemblingState assemblingDeckColumns = new AssemblingState();
+            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeckColumns, assemblingDeckColumns);
 
-            PlanningStateBeams2 planningBeams2 = new PlanningStateBeams2(rules, projectParameters);
-            AssemblingState assemmblingBeams2 = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams2, assemmblingBeams2);
+            //PlanningStateBeams2 planningBeams = new PlanningStateBeams(rules, projectParameters);
+            //AssemblingState assemmblingBeams = new AssemblingState();
+            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
 
             #endregion ProcessModelSetup
 

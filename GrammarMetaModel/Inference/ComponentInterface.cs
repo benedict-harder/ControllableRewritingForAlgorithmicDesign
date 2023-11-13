@@ -78,6 +78,10 @@ namespace GrammarMetaModel
             return flippedYPlane;
         }
 
+        /// <summary>
+        /// Rounds the Origin Cooridnates to two decimal places
+        /// this is to eliminate floating point errors
+        /// </summary>
         public void roundToTwoDecimals()
         {
             Plane tmpPlane = ConnectionPlane;
