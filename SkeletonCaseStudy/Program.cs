@@ -55,44 +55,65 @@ namespace SkeletonCaseStudy
                 beam.Connections.Where(c => c.Name.StartsWith("Column_2")).First(),
                 beam);
 
-            RuleDefinition deckOnColumn = new RuleDefinition(
-            "DeckOnColumn",
-            column,
-            column.Connections.Where(c => c.Name == "Deck").First(),
-            deck.Connections.Where(c => c.Name.StartsWith("Column")).First(),
-            deck);
+            RuleDefinition deckOnColumn1 = new RuleDefinition(
+                "DeckOnColumn",
+                column,
+                column.Connections.Where(c => c.Name == "Deck").First(),
+                deck.Connections.Where(c => c.Name.StartsWith("Column_1")).First(),
+                deck);
+
+            RuleDefinition deckOnColumn2 = new RuleDefinition(
+                "DeckOnColumn",
+                column,
+                column.Connections.Where(c => c.Name == "Deck").First(),
+                deck.Connections.Where(c => c.Name.StartsWith("Column_2")).First(),
+                deck);
+
+            RuleDefinition deckOnColumn3 = new RuleDefinition(
+                "DeckOnColumn",
+                column,
+                column.Connections.Where(c => c.Name == "Deck").First(),
+                deck.Connections.Where(c => c.Name.StartsWith("Column_3")).First(),
+                deck);
+
+            RuleDefinition deckOnColumn4 = new RuleDefinition(
+                "DeckOnColumn",
+                column,
+                column.Connections.Where(c => c.Name == "Deck").First(),
+                deck.Connections.Where(c => c.Name.StartsWith("Column_4")).First(),
+                deck);
 
             RuleDefinition columnOnDeck1 = new RuleDefinition(
-            "ColumnOnDeck1",
-            deck,
-            deck.Connections.Where(c => c.Name.StartsWith("TopColumn_1")).First(),
-            column.Connections.Where(c => c.Name == "Foundation").First(),
-            column);
+                "ColumnOnDeck1",
+                deck,
+                deck.Connections.Where(c => c.Name.StartsWith("TopColumn_1")).First(),
+                column.Connections.Where(c => c.Name == "Foundation").First(),
+                column);
 
             RuleDefinition columnOnDeck2 = new RuleDefinition(
-            "ColumnOnDeck2",
-            deck,
-            deck.Connections.Where(c => c.Name.StartsWith("TopColumn_2")).First(),
-            column.Connections.Where(c => c.Name == "Foundation").First(),
-            column);
+                "ColumnOnDeck2",
+                deck,
+                deck.Connections.Where(c => c.Name.StartsWith("TopColumn_2")).First(),
+                column.Connections.Where(c => c.Name == "Foundation").First(),
+                column);
 
             RuleDefinition columnOnDeck3 = new RuleDefinition(
-            "ColumnOnDeck3",
-            deck,
-            deck.Connections.Where(c => c.Name.StartsWith("TopColumn_3")).First(),
-            column.Connections.Where(c => c.Name == "Foundation").First(),
-            column);
+                "ColumnOnDeck3",
+                deck,
+                deck.Connections.Where(c => c.Name.StartsWith("TopColumn_3")).First(),
+                column.Connections.Where(c => c.Name == "Foundation").First(),
+                column);
 
             RuleDefinition columnOnDeck4 = new RuleDefinition(
-            "ColumnOnDeck4",
-            deck,
-            deck.Connections.Where(c => c.Name.StartsWith("TopColumn_4")).First(),
-            column.Connections.Where(c => c.Name == "Foundation").First(),
-            column);
+                "ColumnOnDeck4",
+                deck,
+                deck.Connections.Where(c => c.Name.StartsWith("TopColumn_4")).First(),
+                column.Connections.Where(c => c.Name == "Foundation").First(),
+                column);
 
 
             RuleCatalogue rules = new RuleCatalogue(
-                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole1, beamOnColumnConsole2, deckOnColumn, columnOnDeck1, columnOnDeck2, columnOnDeck3, columnOnDeck4},
+                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole1, beamOnColumnConsole2, deckOnColumn1, deckOnColumn2, deckOnColumn3, deckOnColumn4, columnOnDeck1, columnOnDeck2, columnOnDeck3, columnOnDeck4},
                  new List<Part> { foundation, column, beam, deck });
             #endregion RuleDefinition
 
@@ -121,9 +142,9 @@ namespace SkeletonCaseStudy
             AssemblingState assemmblingBeams = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
 
-            //PlanningStateBasementDeck planningDeck = new PlanningStateBasementDeck(rules, projectParameters);
-            //AssemblingState assemblingDeck = new AssemblingState();
-            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
+            PlanningStateBasementDeck planningDeck = new PlanningStateBasementDeck(rules, projectParameters);
+            AssemblingState assemblingDeck = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
 
             //PlanningStateDeckColumns planningDeckColumns = new PlanningStateDeckColumns(rules, projectParameters);
             //AssemblingState assemblingDeckColumns = new AssemblingState();
