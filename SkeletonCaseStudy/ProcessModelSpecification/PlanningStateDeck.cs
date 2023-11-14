@@ -13,19 +13,16 @@ namespace SkeletonCaseStudy
     /// Example of how to specify the abstract planning state and fundamentally specify which rules to apply with a specified parameter
     /// The complexity will certainly rise for more complex algorithmic design problems
     /// </summary>
-    public class PlanningStateDeckColumns : PlanningState
+    public class PlanningStateDeck : PlanningState
     {
-        public PlanningStateDeckColumns(RuleCatalogue availableRules, CustomisationSettings projectParameters) : base(availableRules, projectParameters) { }
+        public PlanningStateDeck(RuleCatalogue availableRules, CustomisationSettings projectParameters) : base(availableRules, projectParameters) { }
 
         public override List<RuleDefinition> DefineSequenceOfRuleApplications()
         {
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
 
             //set four rules of column placement
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck2"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck3"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck4"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "DeckOnColumn1"));
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
 
@@ -38,11 +35,14 @@ namespace SkeletonCaseStudy
             foreach (RuleDefinition rule in this.RulesToBeExecuted)
             {
                 Dictionary<string, double> specifiedPartParams = new Dictionary<string, double>();
-                double storeyHeight = this.ProjectParameters.GetParameterValue("StoreyHeight");
-                specifiedPartParams["RH_IN:Height"] = storeyHeight; //set column height
+                double lengthX = this.ProjectParameters.GetParameterValue("FieldLengthX") + 0.3;
+                double lengthY = this.ProjectParameters.GetParameterValue("FieldLengthY") + 0.3;
+                specifiedPartParams["RH_IN:XExtension"] = lengthX;
+                specifiedPartParams["RH_IN:YExtension"] = lengthY;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
             }
             return partParameters;
         }
+
     }
 }

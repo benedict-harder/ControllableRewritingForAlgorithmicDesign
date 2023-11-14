@@ -79,8 +79,8 @@ namespace GrammarMetaModel
         }
 
         /// <summary>
-        /// Rounds the Origin Cooridnates to two decimal places
-        /// this is to eliminate floating point errors
+        /// Rounds the Origin Cooridnates to two decimal places.
+        /// This is to eliminate floating point errors
         /// </summary>
         public void roundToTwoDecimals()
         {

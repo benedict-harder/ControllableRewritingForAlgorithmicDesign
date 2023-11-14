@@ -135,25 +135,21 @@ namespace SkeletonCaseStudy
             ProcessModel skeletonProcessModel = new ProcessModel(rules);
             skeletonProcessModel.AddStartState(new StartStateSkeleton(dummyPlot, foundation));
             
-            PlanningStateBasementColumns planningColumnAssembly = new PlanningStateBasementColumns(rules, projectParameters);
-            AssemblingState assemblingColumns = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumnAssembly, assemblingColumns);
+            PlanningStateBottomColumns planningBottomColumnAssembly = new PlanningStateBottomColumns(rules, projectParameters);
+            AssemblingState assemblingBottomColumns = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomColumnAssembly, assemblingBottomColumns);
 
             PlanningStateBeams planningBeams = new PlanningStateBeams(rules, projectParameters);
             AssemblingState assemmblingBeams = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
 
-            PlanningStateBasementDeck planningDeck = new PlanningStateBasementDeck(rules, projectParameters);
+            PlanningStateDeck planningDeck = new PlanningStateDeck(rules, projectParameters);
             AssemblingState assemblingDeck = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
 
-            //PlanningStateDeckColumns planningDeckColumns = new PlanningStateDeckColumns(rules, projectParameters);
-            //AssemblingState assemblingDeckColumns = new AssemblingState();
-            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeckColumns, assemblingDeckColumns);
-
-            //PlanningStateBeams2 planningBeams = new PlanningStateBeams(rules, projectParameters);
-            //AssemblingState assemmblingBeams = new AssemblingState();
-            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
+            PlanningStateColumns planningColumns = new PlanningStateColumns(rules, projectParameters);
+            AssemblingState assemblingColumns = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumns, assemblingColumns);
 
             #endregion ProcessModelSetup
 
