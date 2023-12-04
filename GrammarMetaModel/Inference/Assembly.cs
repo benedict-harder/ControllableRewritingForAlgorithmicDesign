@@ -67,7 +67,7 @@ namespace GrammarMetaModel
                 }
                 plottedComponents.Add(component);
             }
-            string path = string.Format(@"C:\Users\Benedict\Documents\repos\ControllableRewritingForAlgorithmicDesign\SkeletonCaseStudy\ThreeDmModelsGenerated\testModel{0}.3dm", fileIndex);
+            string path = string.Format(@"C:\Users\Benedict\Documents\repos\ControllableRewritingForAlgorithmicDesign\3dmModels\testModel{0}.3dm", fileIndex);
             outputFile.Write(path, 0);
             return true;
         }

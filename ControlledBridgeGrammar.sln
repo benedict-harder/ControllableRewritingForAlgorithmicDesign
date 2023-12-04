@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32428.217
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkeletonCaseStudy", "SkeletonCaseStudy\SkeletonCaseStudy.csproj", "{C1BC307D-A25D-4136-9F4E-23F9A45998AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrammarMetaModel", "GrammarMetaModel\GrammarMetaModel.csproj", "{34A8A265-CB2A-4591-A5E6-6F1BB1CF91B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmMetaModel", "AlgorithmMetaModel\AlgorithmMetaModel.csproj", "{0643DE69-6791-4DA6-ADE9-4A37A3747155}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFieldSkeletonStudy", "TwoFieldSkeletonStudy\TwoFieldSkeletonStudy.csproj", "{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,18 @@ Global
 		{0643DE69-6791-4DA6-ADE9-4A37A3747155}.Release|x64.Build.0 = Release|x64
 		{0643DE69-6791-4DA6-ADE9-4A37A3747155}.Release|x86.ActiveCfg = Release|x86
 		{0643DE69-6791-4DA6-ADE9-4A37A3747155}.Release|x86.Build.0 = Release|x86
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Release|x64.Build.0 = Release|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD76C26B-249D-4BEE-BC8E-3F4610F464E5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
