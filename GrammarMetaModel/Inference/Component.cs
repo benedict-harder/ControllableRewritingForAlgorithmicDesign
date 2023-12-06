@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rhino.Geometry;
 
 namespace GrammarMetaModel
@@ -11,25 +7,19 @@ namespace GrammarMetaModel
     /// Objects of this type populate the assembly.  
     /// Every component/componentInterface object is a "part occurence" of a part/partInterface object, mostly set according to a RuleDefinition
     /// </summary>
-    public class Component
+    public class Component : AbstractComponent
     {
-        public Part ComponentTemplate;
-        public List<ComponentInterface> ComponentInterfaces = new List<ComponentInterface>();
+        //public Part ComponentTemplate;
+        //public List<ComponentInterface> ComponentInterfaces = new List<ComponentInterface>();
         public Mesh MeshGeometry;
 
-        public Component(Part relatedPart, Mesh meshGeometry)
+        public Component(Part relatedPart, Mesh meshGeometry): base(relatedPart)
         {
-            ComponentTemplate = relatedPart;
+            //ComponentTemplate = relatedPart;
             MeshGeometry = meshGeometry;
         }
 
-
-        public void AddConnection(ComponentInterface componentInterface)
-        {
-            ComponentInterfaces.Add(componentInterface);
-        }
-
-        public void TransformPlaneToPlane(ComponentInterface existingInterface, ComponentInterface newInterface)
+        public override void TransformPlaneToPlane(ComponentInterface existingInterface, ComponentInterface newInterface)
         {
             //compute transformation like it is done in WASP (please study the application logic with help of the wasp grasshopper plugin)
             Transform transformationMatrix = Transform.PlaneToPlane(newInterface.GetPlaneFlippedAtYAxis(),  existingInterface.ConnectionPlane);
@@ -41,7 +31,7 @@ namespace GrammarMetaModel
 
         }
 
-        public void Translate(Vector3d translation)
+        public override void Translate(Vector3d translation)
         {
             //transform geos
             bool valid = MeshGeometry.Translate(translation);
@@ -53,7 +43,7 @@ namespace GrammarMetaModel
 
         }
 
-        public void RotateAroundGlobalOrigin( double angleInRadians, char axis)
+        public override void RotateAroundGlobalOrigin( double angleInRadians, char axis)
         {
             //define parameters
             Vector3d rotationAxis = new Vector3d();

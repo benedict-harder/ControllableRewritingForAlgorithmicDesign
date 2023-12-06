@@ -13,9 +13,9 @@ namespace GrammarMetaModel
     /// I borrowed the part-component concept from siemens nx (see p.72 in this guide https://docs.plm.automation.siemens.com/data_services/resources/nx/10/nx_api/en_US/graphics/fileLibrary/nx/snap/SNAP_Getting_Started_V10.pdf) 
     /// In WASP, simple copies of the "part-objects" are created every time a component is positioned - i find the part-component distinction clearer.
     /// </summary>
-    public class Part
+    public class Part: AbstractPart
     {
-        public string Name = "";
+        //public string Name = "";
         public List<PartInterface> Connections = new List<PartInterface>();
 
         // props for parametric geometry generation via Resthopper interface
@@ -23,7 +23,7 @@ namespace GrammarMetaModel
         public Dictionary<string, double> Parameters = new Dictionary<string, double>(); 
     
 
-        public Part(string name, string ghDefinitionFileName)
+        public Part(string name, string ghDefinitionFileName) : base(name)
         {
             Name = name;
             GhDefinitionFullPath = @"C:\Users\Benedict\Documents\repos\ControllableRewritingForAlgorithmicDesign\GhDefinitionFiles\" + ghDefinitionFileName;
