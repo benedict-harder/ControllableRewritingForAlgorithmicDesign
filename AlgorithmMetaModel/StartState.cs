@@ -24,11 +24,11 @@ namespace AlgorithmMetaModel
 
         public override void Compute(RuleCatalogue availableRules)
         {
-            List<Component> startSymbol = PlaceStartSymbol();
+            List<AbstractComponent> startSymbol = PlaceStartSymbol();
             this.DesignGraph.AggregatedModules = startSymbol;
         }
 
-        public abstract List<Component> PlaceStartSymbol();
+        public abstract List<AbstractComponent> PlaceStartSymbol();
 
     }
 }

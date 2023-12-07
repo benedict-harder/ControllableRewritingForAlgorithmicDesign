@@ -9,8 +9,8 @@ namespace GrammarMetaModel
 {
     public abstract class AbstractComponent
     {
-        public AbstractPart ComponentTemplate { get; set; }
-        public List<ComponentInterface> ComponentInterfaces { get; set; }
+        public AbstractPart ComponentTemplate;
+        public List<ComponentInterface> ComponentInterfaces = new List<ComponentInterface>();
 
         public AbstractComponent(AbstractPart relatedPart)
         {
@@ -22,6 +22,7 @@ namespace GrammarMetaModel
             ComponentInterfaces.Add(componentinterface);
         }
 
+        public abstract void AddToAssembly(Assembly assembly);
         public abstract void TransformPlaneToPlane(ComponentInterface existingInterface, ComponentInterface newInterface);
 
         public abstract void Translate(Vector3d translation);

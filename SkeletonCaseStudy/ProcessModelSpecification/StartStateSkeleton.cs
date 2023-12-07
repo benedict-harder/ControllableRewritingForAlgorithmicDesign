@@ -16,7 +16,7 @@ namespace SkeletonCaseStudy
     {
         public StartStateSkeleton(Rectangle3d auxiliaryGeometry, Part startPart) : base(auxiliaryGeometry, startPart) { }
 
-        public override List<Component> PlaceStartSymbol()
+        public override List<AbstractComponent> PlaceStartSymbol()
         {
             //get edges of rectangular plot
             Rectangle3d auxiliaryGeometry = (Rectangle3d)AuxiliaryGeometry;
@@ -32,7 +32,7 @@ namespace SkeletonCaseStudy
             //place the four foundations going clockwise, turning them cw around the z-axis 
             int j = 0;
             char rotationAxis = 'z';
-            List<Component> startSymbol = new List<Component>();
+            List<AbstractComponent> startSymbol = new List<AbstractComponent>();
             foreach (Vector3d target in targetsForFoundations)
             {
                 Component foundation = RewritingHandler.CreateComponentInGlobalOrigin(this.StartPart);

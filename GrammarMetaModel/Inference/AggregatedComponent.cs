@@ -13,6 +13,14 @@ namespace GrammarMetaModel
             Components = components;
         }
 
+        public override void AddToAssembly(Assembly assembly)
+        {
+            foreach (Component component in Components)
+            {
+                component.AddToAssembly(assembly);
+            }
+        }
+
         public override void TransformPlaneToPlane(ComponentInterface existingInterface, ComponentInterface newInterface)
         {
             Transform transformationMatrix = Transform.PlaneToPlane(newInterface.GetPlaneFlippedAtYAxis(), existingInterface.ConnectionPlane);

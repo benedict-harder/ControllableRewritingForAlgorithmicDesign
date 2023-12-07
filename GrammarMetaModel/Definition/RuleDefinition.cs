@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GrammarMetaModel
@@ -9,12 +10,23 @@ namespace GrammarMetaModel
     public class RuleDefinition
     {
         public string Name;
-        public Part LhsModule;
+        private bool isHierarchical = false;
+        public AbstractPart LhsModule;
         public PartInterface LhsModuleInterface;
         //public List<PartInterface> LhsModuleInterfaceList;
         public PartInterface RhsModuleInterface;
-        public Part RhsModule;
+        public AbstractPart RhsModule;
 
+        public RuleDefinition(string name, AbstractPart lhsModule, PartInterface lhsModuleInterface, PartInterface rhsModuleInterface, AbstractPart rhsModule)
+        {
+            Name = name;
+            isHierarchical = true;
+            LhsModule = lhsModule;
+            LhsModuleInterface = lhsModuleInterface;
+            //LhsModuleInterfaceList = null;
+            RhsModuleInterface = rhsModuleInterface;
+            RhsModule = rhsModule;
+        }
         public RuleDefinition(string name, Part lhsModule, PartInterface lhsModuleInterface, PartInterface rhsModuleInterface, Part rhsModule)
         {
             Name = name;
@@ -28,6 +40,7 @@ namespace GrammarMetaModel
         public RuleDefinition(string name, Part lhsModule, PartInterface lhsModuleInterface, PartInterface rhsModuleInterface, Part rhsModule, List<string> paramValues)
         {
             Name = name;
+            isHierarchical = false;
             LhsModule = lhsModule;
             LhsModuleInterface = lhsModuleInterface;
             RhsModuleInterface = rhsModuleInterface;

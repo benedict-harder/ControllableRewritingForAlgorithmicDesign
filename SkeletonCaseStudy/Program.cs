@@ -32,6 +32,23 @@ namespace SkeletonCaseStudy
             Part beam = new Part("beam", "beam.ghx");
             Part deck = new Part("deck", "deck.ghx");
 
+
+            // here we introduce an aggregated part consisting of 4 columns, 4 beams, and a deck (cbd)
+            List<Part> cbdPartList = new List<Part>
+            {
+                column,
+                beam,
+                deck
+            };
+
+            List<PartInterface> cbdInterfaceList = new List<PartInterface>
+            {
+                column.Connections.Where(r => r.Name == "Foundation").First(),
+                deck.Connections.Where(r => r.Name.StartsWith("TopColumn")).First()
+            };
+
+            AggregatedPart cbd = new AggregatedPart("cbdAggregation", cbdPartList, cbdInterfaceList);
+
             // Rule Definitions
             RuleDefinition columnOnFoundation = new RuleDefinition(
                 "ColumnOnFoundation",
@@ -111,10 +128,16 @@ namespace SkeletonCaseStudy
                 column.Connections.Where(c => c.Name == "Foundation").First(),
                 column);
 
+            RuleDefinition cbdRule = new RuleDefinition(
+                "cbd",
+                cbd,
+                cbd.Connections.Where(c => c.Name.StartsWith("TopColumn")).First(),
+                cbd.Connections.Where(c => c.Name.StartsWith("Foundation")).First(),
+                cbd);
 
             RuleCatalogue rules = new RuleCatalogue(
-                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole1, beamOnColumnConsole2, deckOnColumn1, deckOnColumn2, deckOnColumn3, deckOnColumn4, columnOnDeck1, columnOnDeck2, columnOnDeck3, columnOnDeck4},
-                 new List<Part> { foundation, column, beam, deck });
+                "OneField", new List<RuleDefinition> { columnOnFoundation, beamOnColumnConsole1, beamOnColumnConsole2, deckOnColumn1, deckOnColumn2, deckOnColumn3, deckOnColumn4, columnOnDeck1, columnOnDeck2, columnOnDeck3, columnOnDeck4, cbdRule},
+                 new List<AbstractPart> { foundation, column, beam, deck , cbd});
             #endregion RuleDefinition
 
             // The setup of the entire process model should happen prior to any rule execution i think. 
@@ -150,21 +173,23 @@ namespace SkeletonCaseStudy
             AssemblingState assemblingBottomDeck = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomDeck, assemblingBottomDeck);
 
-            int nrOfStoreys = Convert.ToInt16(projectParameters.Parameters["NumberOfStoreys"] + projectParameters.Parameters["NumberOfBasementStoreys"]) - 1;
-            for (int i = 0; i < nrOfStoreys; i++)
-            {
-                PlanningStateColumns planningColumns = new PlanningStateColumns(rules, projectParameters);
-                AssemblingState assemblingColumns = new AssemblingState();
-                skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumns, assemblingColumns);
 
-                PlanningStateBeams planningBeams = new PlanningStateBeams(rules, projectParameters);
-                AssemblingState assemmblingBeams = new AssemblingState();
-                skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
 
-                PlanningStateDeck planningDeck = new PlanningStateDeck(rules, projectParameters);
-                AssemblingState assemblingDeck = new AssemblingState();
-                skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
-            }
+            //int nrOfStoreys = Convert.ToInt16(projectParameters.Parameters["NumberOfStoreys"] + projectParameters.Parameters["NumberOfBasementStoreys"]) - 1;
+            //for (int i = 0; i < nrOfStoreys; i++)
+            //{
+            //    PlanningStateColumns planningColumns = new PlanningStateColumns(rules, projectParameters);
+            //    AssemblingState assemblingColumns = new AssemblingState();
+            //    skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumns, assemblingColumns);
+
+            //    PlanningStateBeams planningBeams = new PlanningStateBeams(rules, projectParameters);
+            //    AssemblingState assemmblingBeams = new AssemblingState();
+            //    skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
+
+            //    PlanningStateDeck planningDeck = new PlanningStateDeck(rules, projectParameters);
+            //    AssemblingState assemblingDeck = new AssemblingState();
+            //    skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
+            //}
             
 
             #endregion ProcessModelSetup

@@ -19,6 +19,11 @@ namespace GrammarMetaModel
             MeshGeometry = meshGeometry;
         }
 
+        public override void AddToAssembly(Assembly assembly)
+        {
+            assembly.AggregatedModules.Add(this);
+        }
+
         public override void TransformPlaneToPlane(ComponentInterface existingInterface, ComponentInterface newInterface)
         {
             //compute transformation like it is done in WASP (please study the application logic with help of the wasp grasshopper plugin)

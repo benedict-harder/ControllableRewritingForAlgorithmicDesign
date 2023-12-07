@@ -30,17 +30,19 @@ namespace AlgorithmMetaModel
             {
 
                 //adjusting the part parameters for the part
-                if (PartParametersForRuleApplication.Count>0)
+                if (rule.RhsModule.GetType() == typeof(Part))
                 {
-                    Dictionary<string, double> ParameterSet = PartParametersForRuleApplication.ElementAt(i);
-                    Part correspondingPart = rule.RhsModule;
-                    foreach (KeyValuePair<string, double> keyVal in ParameterSet)
+                    if (PartParametersForRuleApplication.Count > 0)
                     {
-                        //set parameter
-                        correspondingPart.Parameters[keyVal.Key] = keyVal.Value;
+                        Dictionary<string, double> ParameterSet = PartParametersForRuleApplication.ElementAt(i);
+                        Part correspondingPart = (Part)rule.RhsModule;
+                        foreach (KeyValuePair<string, double> keyVal in ParameterSet)
+                        {
+                            //set parameter
+                            correspondingPart.Parameters[keyVal.Key] = keyVal.Value;
+                        }
                     }
                 }
-                
                 //executing the rule
                 DesignGraph = RewritingHandler.ApplyRule(DesignGraph, rule, availableRules);
                 i++;

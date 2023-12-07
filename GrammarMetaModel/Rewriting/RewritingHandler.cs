@@ -52,7 +52,8 @@ namespace GrammarMetaModel
         {
             //create the component from the part with concrete geometry
             Component newlyAddedComponent = CreateComponentInGlobalOrigin(newPartInterface.ParentPart);
-            designGraph.AggregatedModules.Add(newlyAddedComponent);
+            //designGraph.AggregatedModules.Add(newlyAddedComponent);
+            newlyAddedComponent.AddToAssembly(designGraph);
 
             ComponentInterface newComponentInterface = newlyAddedComponent.ComponentInterfaces.Where(ci => ci.TemplateInterface == newPartInterface).First();
             newlyAddedComponent.TransformPlaneToPlane(existingInterfaceToConnectTo, newComponentInterface);

@@ -12,11 +12,27 @@ namespace GrammarMetaModel
     /// </summary>
     public class Assembly
     {
-        public List<Component> AggregatedModules { get; set; } = new List<Component>();
+        public List<AbstractComponent> AggregatedModules { get; set; } = new List<AbstractComponent>();
 
         public Assembly()
         {       
         }
+
+        //public void AddModule(AbstractComponent module)
+        //{
+        //    if (module.GetType() == typeof(Component))
+        //    {
+        //        AggregatedModules.Add(module);
+        //    }
+        //    else if (module.GetType() == typeof(AggregatedComponent))
+        //    {
+        //        module = (AggregatedComponent)module;
+        //        foreach (Component comp in module.Components)
+        //        {
+        //           AggregatedModules.Add(comp);
+        //        }
+        //    }
+        //}
 
         //loops through all components to find the open interfaces
         public List<ComponentInterface> GetAllOpenInterfaces()
