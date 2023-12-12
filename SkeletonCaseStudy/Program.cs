@@ -34,11 +34,18 @@ namespace SkeletonCaseStudy
 
 
             // here we introduce an aggregated part consisting of 4 columns, 4 beams, and a deck (cbd)
-            List<Part> cbdPartList = new List<Part>
+            //List<Part> cbdPartList = new List<Part>
+            //{
+            //    column,
+            //    beam,
+            //    deck
+            //};
+
+            Dictionary<Part, int> cbdPartDict = new Dictionary<Part, int>()
             {
-                column,
-                beam,
-                deck
+                { column, 4 },
+                { beam,   4 },
+                { deck,   1 },
             };
 
             List<PartInterface> cbdInterfaceList = new List<PartInterface>
@@ -47,7 +54,7 @@ namespace SkeletonCaseStudy
                 deck.Connections.Where(r => r.Name.StartsWith("TopColumn")).First()
             };
 
-            AggregatedPart cbd = new AggregatedPart("cbdAggregation", cbdPartList, cbdInterfaceList);
+            AggregatedPart cbd = new AggregatedPart("cbdAggregation", cbdPartDict, cbdInterfaceList);
 
             // Rule Definitions
             RuleDefinition columnOnFoundation = new RuleDefinition(
@@ -173,7 +180,18 @@ namespace SkeletonCaseStudy
             AssemblingState assemblingBottomDeck = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomDeck, assemblingBottomDeck);
 
+            PlanningStateCBDAggregation planningCbd = new PlanningStateCBDAggregation(rules, projectParameters);
+            AssemblingState assemblingCbd = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningCbd, assemblingCbd);
 
+            //List<Component> cbdComponents = new List<Component>();
+
+            //for (int i = 4; i <= 12; i++)
+            //{
+            //    cbdComponents.Add((Component)skeletonProcessModel.DesignGraph.AggregatedModules[i]);
+            //}
+
+            //AggregatedComponent cdb1 = new AggregatedComponent(cbd, cbdComponents);
 
             //int nrOfStoreys = Convert.ToInt16(projectParameters.Parameters["NumberOfStoreys"] + projectParameters.Parameters["NumberOfBasementStoreys"]) - 1;
             //for (int i = 0; i < nrOfStoreys; i++)
@@ -190,7 +208,7 @@ namespace SkeletonCaseStudy
             //    AssemblingState assemblingDeck = new AssemblingState();
             //    skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
             //}
-            
+
 
             #endregion ProcessModelSetup
 

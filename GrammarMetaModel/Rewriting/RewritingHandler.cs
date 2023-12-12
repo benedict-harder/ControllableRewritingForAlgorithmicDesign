@@ -20,7 +20,7 @@ namespace GrammarMetaModel
         public static Assembly ApplyRule(Assembly assemblyToBeProcessed, RuleDefinition rule, RuleCatalogue availableRules)
         {
             RuleMatchingResult matches = new RuleMatchingResult(assemblyToBeProcessed, rule);
-            Assembly processedAssembly = ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, availableRules);
+            Assembly processedAssembly = ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, availableRules, rule);
 
             return assemblyToBeProcessed;
         }
@@ -48,14 +48,40 @@ namespace GrammarMetaModel
         /// <summary>
         ///  Creates the new component, transforms it in place and processes the design graph
         /// </summary>
-        public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface, RuleCatalogue availableRules)
+        public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface, RuleCatalogue availableRules, RuleDefinition rule)
         {
-            //create the component from the part with concrete geometry
-            Component newlyAddedComponent = CreateComponentInGlobalOrigin(newPartInterface.ParentPart);
-            //designGraph.AggregatedModules.Add(newlyAddedComponent);
-            newlyAddedComponent.AddToAssembly(designGraph);
+            AbstractComponent newlyAddedComponent;
+            ComponentInterface newComponentInterface;
+            if (!rule.isHierarchical)
+            {
+                //create the component from the part with concrete geometry
+                newlyAddedComponent = CreateComponentInGlobalOrigin(newPartInterface.ParentPart);
+                //designGraph.AggregatedModules.Add(newlyAddedComponent);
+                newlyAddedComponent.AddToAssembly(designGraph);
 
-            ComponentInterface newComponentInterface = newlyAddedComponent.ComponentInterfaces.Where(ci => ci.TemplateInterface == newPartInterface).First();
+                newComponentInterface = newlyAddedComponent.ComponentInterfaces.Where(ci => ci.TemplateInterface == newPartInterface).First();
+                
+            }
+            else
+            {
+                List<AbstractComponent> existingAggregation = new List<AbstractComponent>();
+                AggregatedPart template = (AggregatedPart)rule.LhsModule;
+                foreach(KeyValuePair<Part, int> pair in template.PartsDictionary)
+                {
+                    existingAggregation.AddRange(designGraph.AggregatedModules.Where(m => m.ComponentTemplate == pair.Key).Take(pair.Value).ToList());
+                }
+
+                List<AbstractComponent> newAggregation = new List<AbstractComponent>(existingAggregation);
+
+                newlyAddedComponent = new AggregatedComponent(template, newAggregation);
+                newlyAddedComponent.AddConnection(newAggregation[0].ComponentInterfaces.Where(r => r.TemplateInterface.Name == "Foundation").First());
+                newlyAddedComponent.AddConnection(newAggregation[8].ComponentInterfaces.Where(r => r.TemplateInterface.Name.StartsWith("TopColumn")).First());
+
+                newlyAddedComponent.AddToAssembly(designGraph);
+                existingInterfaceToConnectTo = existingAggregation[8].ComponentInterfaces.Where(r => r.TemplateInterface.Name.StartsWith("TopColumn")).First();
+                newComponentInterface = newlyAddedComponent.ComponentInterfaces[0];
+
+            }
             newlyAddedComponent.TransformPlaneToPlane(existingInterfaceToConnectTo, newComponentInterface);
 
             // floating point errors may occur after transformation
@@ -102,6 +128,5 @@ namespace GrammarMetaModel
 
             return designGraph;
         }
-
     }
 }

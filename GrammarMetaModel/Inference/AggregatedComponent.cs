@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace GrammarMetaModel
 {
-    internal class AggregatedComponent : AbstractComponent
+    public class AggregatedComponent : AbstractComponent
     {
-        public List<Component> Components;
+        public List<AbstractComponent> Components;
 
-        public AggregatedComponent(AbstractPart relatedPart, List<Component> components) : base(relatedPart)
+        public AggregatedComponent(AbstractPart relatedPart, List<AbstractComponent> components) : base(relatedPart)
         {
             Components = components;
         }

@@ -97,10 +97,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Definition\AbstractPart.cs" />
+    <Compile Include="Definition\AggregatedPart.cs" />
     <Compile Include="Definition\Part.cs" />
     <Compile Include="Definition\PartInterface.cs" />
     <Compile Include="Definition\RuleCatalogue.cs" />
     <Compile Include="Definition\RuleDefinition.cs" />
+    <Compile Include="Inference\AbstractComponent.cs" />
+    <Compile Include="Inference\AggregatedComponent.cs" />
     <Compile Include="Inference\Assembly.cs" />
     <Compile Include="Inference\Component.cs" />
     <Compile Include="Inference\ComponentInterface.cs" />

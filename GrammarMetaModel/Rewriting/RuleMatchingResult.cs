@@ -55,9 +55,18 @@ namespace GrammarMetaModel
                 int randomIndex = generator.Next(0, Matches.Count - 1);
                 match = Matches.ElementAt(randomIndex);
             }
-            else match = Matches.First();
+            else
+            {
+                try
+                {
+                    match = Matches.First();
+                }
+                catch (InvalidOperationException e)
+                {
+                    match = null;
+                }
+            }
             return match;
         }
-
     }
 }

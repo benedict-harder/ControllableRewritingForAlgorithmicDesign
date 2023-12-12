@@ -12,6 +12,7 @@ namespace GrammarMetaModel
         public AbstractPart ComponentTemplate;
         public List<ComponentInterface> ComponentInterfaces = new List<ComponentInterface>();
 
+        public AbstractComponent() { }
         public AbstractComponent(AbstractPart relatedPart)
         {
             ComponentTemplate = relatedPart;

@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProcessModelSpecification\PlanningStateBottomColumns.cs" />
+    <Compile Include="ProcessModelSpecification\PlanningStateCBDAggregation.cs" />
     <Compile Include="ProcessModelSpecification\PlanningStateDeck.cs" />
     <Compile Include="ProcessModelSpecification\PlanningStateBeams.cs" />
     <Compile Include="ProcessModelSpecification\PlanningStateColumns.cs" />

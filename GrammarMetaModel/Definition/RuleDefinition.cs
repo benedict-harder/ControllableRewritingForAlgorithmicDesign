@@ -10,10 +10,9 @@ namespace GrammarMetaModel
     public class RuleDefinition
     {
         public string Name;
-        private bool isHierarchical = false;
+        public bool isHierarchical = false;
         public AbstractPart LhsModule;
         public PartInterface LhsModuleInterface;
-        //public List<PartInterface> LhsModuleInterfaceList;
         public PartInterface RhsModuleInterface;
         public AbstractPart RhsModule;
 
@@ -23,7 +22,6 @@ namespace GrammarMetaModel
             isHierarchical = true;
             LhsModule = lhsModule;
             LhsModuleInterface = lhsModuleInterface;
-            //LhsModuleInterfaceList = null;
             RhsModuleInterface = rhsModuleInterface;
             RhsModule = rhsModule;
         }
@@ -32,20 +30,19 @@ namespace GrammarMetaModel
             Name = name;
             LhsModule = lhsModule;
             LhsModuleInterface = lhsModuleInterface;
-            //LhsModuleInterfaceList = null;
             RhsModuleInterface = rhsModuleInterface;
             RhsModule = rhsModule;
         }
 
-        public RuleDefinition(string name, Part lhsModule, PartInterface lhsModuleInterface, PartInterface rhsModuleInterface, Part rhsModule, List<string> paramValues)
-        {
-            Name = name;
-            isHierarchical = false;
-            LhsModule = lhsModule;
-            LhsModuleInterface = lhsModuleInterface;
-            RhsModuleInterface = rhsModuleInterface;
-            RhsModule = rhsModule;
-        }
+        //public RuleDefinition(string name, Part lhsModule, PartInterface lhsModuleInterface, PartInterface rhsModuleInterface, Part rhsModule, List<string> paramValues)
+        //{
+        //    Name = name;
+        //    isHierarchical = false;
+        //    LhsModule = lhsModule;
+        //    LhsModuleInterface = lhsModuleInterface;
+        //    RhsModuleInterface = rhsModuleInterface;
+        //    RhsModule = rhsModule;
+        //}
 
         //public RuleDefinition(string name, Part lhsModule, List<PartInterface> lhsModuleInterfaces, PartInterface rhsModuleInterface, Part rhsModule)
         //{

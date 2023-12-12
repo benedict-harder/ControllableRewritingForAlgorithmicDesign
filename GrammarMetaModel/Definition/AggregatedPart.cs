@@ -8,12 +8,13 @@ namespace GrammarMetaModel
 {
     public class AggregatedPart: AbstractPart
     {
-        public List<Part> Parts;
+        //public List<Part> Parts;
+        public Dictionary<Part, int> PartsDictionary = new Dictionary<Part, int>();
         public List<PartInterface> Connections;
 
-        public AggregatedPart(string name, List<Part> parts, List<PartInterface> partInterface) : base (name)
+        public AggregatedPart(string name, Dictionary<Part, int> partDict, List<PartInterface> partInterface) : base (name)
         {
-            Parts = parts;
+            PartsDictionary = partDict;
             Connections = partInterface;
         }
     }
