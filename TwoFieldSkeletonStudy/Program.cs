@@ -27,7 +27,7 @@ namespace TwoFieldSkeletonStudy
 
             // Part Definitions
             Part foundation = new Part("foundation", "foundation.ghx");
-            Part column = new Part("column", "column.ghx");
+            Part column = new Part("column", "column_adaptable.ghx");
 
             Part beam = new Part("beam", "beam.ghx");
             Part deck = new Part("deck", "deck.ghx");
@@ -123,12 +123,12 @@ namespace TwoFieldSkeletonStudy
             #region ProcessModelSetup
             // start symbol setup 
             CustomisationSettings projectParameters = new CustomisationSettings();
-            projectParameters.Parameters["NumberOfFields"] = 1.0;
+            projectParameters.Parameters["NumberOfFields"] = 4.0;
             projectParameters.Parameters["NumberOfStoreys"] = 2.0;
             projectParameters.Parameters["NumberOfBasementStoreys"] = 1.0;
             projectParameters.Parameters["StoreyHeight"] = 3.5;
-            projectParameters.Parameters["FieldLengthX"] = 8.0;
-            projectParameters.Parameters["FieldLengthY"] = 16.0;
+            projectParameters.Parameters["FieldLengthX"] = 10.0;
+            projectParameters.Parameters["FieldLengthY"] = 10.0;
             projectParameters.Parameters["ColumnWidth"] = 0.3;
 
             double zcoord = projectParameters.Parameters["NumberOfBasementStoreys"] * projectParameters.Parameters["StoreyHeight"] * (-1);
@@ -136,35 +136,35 @@ namespace TwoFieldSkeletonStudy
 
             //// process model
             ProcessModel skeletonProcessModel = new ProcessModel(rules);
-            skeletonProcessModel.AddStartState(new StartStateSkeleton(dummyPlot, foundation));
+            skeletonProcessModel.AddStartState(new StartStateSkeleton(dummyPlot, foundation, projectParameters));
 
-            PlanningStateBottomColumns planningBottomColumnAssembly = new PlanningStateBottomColumns(rules, projectParameters);
-            AssemblingState assemblingBottomColumns = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomColumnAssembly, assemblingBottomColumns);
+            //PlanningStateBottomColumns planningBottomColumnAssembly = new PlanningStateBottomColumns(rules, projectParameters);
+            //AssemblingState assemblingBottomColumns = new AssemblingState();
+            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomColumnAssembly, assemblingBottomColumns);
 
-            PlanningStateBeams planningBottomBeams = new PlanningStateBeams(rules, projectParameters);
-            AssemblingState assemmblingBottomBeams = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomBeams, assemmblingBottomBeams);
+            //PlanningStateBeams planningBottomBeams = new PlanningStateBeams(rules, projectParameters);
+            //AssemblingState assemmblingBottomBeams = new AssemblingState();
+            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomBeams, assemmblingBottomBeams);
 
-            PlanningStateDeck planningBottomDeck = new PlanningStateDeck(rules, projectParameters);
-            AssemblingState assemblingBottomDeck = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomDeck, assemblingBottomDeck);
+            //PlanningStateDeck planningBottomDeck = new PlanningStateDeck(rules, projectParameters);
+            //AssemblingState assemblingBottomDeck = new AssemblingState();
+            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomDeck, assemblingBottomDeck);
 
-            int nrOfStoreys = Convert.ToInt16(projectParameters.Parameters["NumberOfStoreys"] + projectParameters.Parameters["NumberOfBasementStoreys"]) - 1;
-            for (int i = 0; i < nrOfStoreys; i++)
-            {
-                PlanningStateColumns planningColumns = new PlanningStateColumns(rules, projectParameters);
-                AssemblingState assemblingColumns = new AssemblingState();
-                skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumns, assemblingColumns);
+            //int nrOfStoreys = Convert.ToInt16(projectParameters.Parameters["NumberOfStoreys"] + projectParameters.Parameters["NumberOfBasementStoreys"]) - 1;
+            //for (int i = 0; i < nrOfStoreys; i++)
+            //{
+            //    PlanningStateColumns planningColumns = new PlanningStateColumns(rules, projectParameters);
+            //    AssemblingState assemblingColumns = new AssemblingState();
+            //    skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningColumns, assemblingColumns);
 
-                PlanningStateBeams planningBeams = new PlanningStateBeams(rules, projectParameters);
-                AssemblingState assemmblingBeams = new AssemblingState();
-                skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
+            //    PlanningStateBeams planningBeams = new PlanningStateBeams(rules, projectParameters);
+            //    AssemblingState assemmblingBeams = new AssemblingState();
+            //    skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
 
-                PlanningStateDeck planningDeck = new PlanningStateDeck(rules, projectParameters);
-                AssemblingState assemblingDeck = new AssemblingState();
-                skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
-            }
+            //    PlanningStateDeck planningDeck = new PlanningStateDeck(rules, projectParameters);
+            //    AssemblingState assemblingDeck = new AssemblingState();
+            //    skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
+            //}
 
 
             #endregion ProcessModelSetup
