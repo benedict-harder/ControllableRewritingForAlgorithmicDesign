@@ -73,15 +73,7 @@ namespace TwoFieldSkeletonStudy
             bool rec = false;
             while (!rec)
             {
-                if (p == nrOfFields - 1)
-                {
-                    p = 0;
-                    r += 1;
-                }
-                else
-                {
-                    p += 1;
-                }
+                
                 if (k <= nrOfFields - 1 && l == 0)
                 {
                     Vector3d vec = new Vector3d(xcoord, ycoord, zcoord);
@@ -121,6 +113,15 @@ namespace TwoFieldSkeletonStudy
                     Rectangle3d newRect = new Rectangle3d(Plane.WorldXY, new Point3d(rect.X.T0 + singleXSection, rect.Y.T0 + singleYSection, zcoord), new Point3d(rect.X.T1 - singleXSection, rect.Y.T1 - singleYSection, zcoord));
                     targetsForFoundations.AddRange(recursiveTargets(newRect, nrOfFields - 2, zcoord));
                     rec = true;
+                }
+                if (p == nrOfFields - 1)
+                {
+                    p = 0;
+                    r += 1;
+                }
+                else
+                {
+                    p += 1;
                 }
             }
             return targetsForFoundations;
