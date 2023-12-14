@@ -20,16 +20,15 @@ namespace TwoFieldSkeletonStudy
         public override List<RuleDefinition> DefineSequenceOfRuleApplications()
         {
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
-
+            int nrOfColumns = (int)Math.Pow(ProjectParameters.Parameters["NumberOfFields"] + 1, 2);
             //set four rules of column placement
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation"));
+            while (nrOfColumns > 0)
+            {
+                rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation"));
+                nrOfColumns--;
+            }
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
-
-                
         }
 
         public override List<Dictionary<string, double>> DefinePartParameters()
@@ -42,10 +41,11 @@ namespace TwoFieldSkeletonStudy
                 double columnWidth = ProjectParameters.GetParameterValue("ColumnWidth");
                 specifiedPartParams["RH_IN:Height"] = storeyHeight; //set column height
                 specifiedPartParams["RH_IN:SideLength"] = columnWidth;
+
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
+                
             }
             return partParameters;
         }
-
     }
 }
