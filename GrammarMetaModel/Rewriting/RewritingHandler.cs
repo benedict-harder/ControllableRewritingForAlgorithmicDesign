@@ -20,9 +20,17 @@ namespace GrammarMetaModel
         public static Assembly ApplyRule(Assembly assemblyToBeProcessed, RuleDefinition rule, RuleCatalogue availableRules)
         {
             RuleMatchingResult matches = new RuleMatchingResult(assemblyToBeProcessed, rule);
-            Assembly processedAssembly = ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, availableRules);
+            ComponentInterface match = matches.GetMatch(false);
+            if (match == null)
+            {
+                return assemblyToBeProcessed;
+            }
+            else
+            {
+                ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, availableRules);
+                return assemblyToBeProcessed;
 
-            return assemblyToBeProcessed;
+            }
         }
 
 
