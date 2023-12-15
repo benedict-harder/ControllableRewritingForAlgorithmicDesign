@@ -24,7 +24,18 @@ namespace TwoFieldSkeletonStudy
             //set four rules of column placement
             while (nrOfColumns > 0)
             {
-                rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation"));
+                if (nrOfColumns == 1)
+                {
+                    rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation3"));
+                }
+                else if (nrOfColumns % 2 == 0)
+                {
+                    rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation2"));
+                }
+                else
+                {
+                    rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation1"));
+                }
                 nrOfColumns--;
             }
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
@@ -40,10 +51,7 @@ namespace TwoFieldSkeletonStudy
                 double storeyHeight = this.ProjectParameters.GetParameterValue("StoreyHeight");
                 double columnWidth = ProjectParameters.GetParameterValue("ColumnWidth");
                 specifiedPartParams["RH_IN:Height"] = storeyHeight; //set column height
-                specifiedPartParams["RH_IN:SideLength"] = columnWidth;
-
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
-                
             }
             return partParameters;
         }
