@@ -283,9 +283,9 @@ namespace TwoFieldSkeletonStudy
             AssemblingState assemblingBottomColumns = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomColumnAssembly, assemblingBottomColumns);
 
-            //PlanningStateBeams planningBottomBeams = new PlanningStateBeams(rules, projectParameters);
-            //AssemblingState assemmblingBottomBeams = new AssemblingState();
-            //skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomBeams, assemmblingBottomBeams);
+            PlanningStateBeams planningBottomBeams = new PlanningStateBeams(rules, projectParameters);
+            AssemblingState assemmblingBottomBeams = new AssemblingState();
+            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomBeams, assemmblingBottomBeams);
 
             //PlanningStateDeck planningBottomDeck = new PlanningStateDeck(rules, projectParameters);
             //AssemblingState assemblingBottomDeck = new AssemblingState();
