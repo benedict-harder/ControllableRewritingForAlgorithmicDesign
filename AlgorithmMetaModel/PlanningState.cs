@@ -34,7 +34,13 @@ namespace AlgorithmMetaModel
             followingAssemblyState.SetRuleApplicationStrategy(RulesToBeExecuted, PartParametersPerRule);
         }
 
+        /// <summary>
+        /// defines the rules that will be (potentially) executed within this planning state
+        /// </summary>
         public abstract List<RuleDefinition> DefineSequenceOfRuleApplications();
+        /// <summary>
+        /// Defines the part parameters for each rule that will be (potentially) executed
+        /// </summary>
         public abstract List<Dictionary<string, double>> DefinePartParameters();
     }
 }

@@ -22,6 +22,8 @@ namespace TwoFieldSkeletonStudy
         {
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
 
+            // here we set "too many" rules
+            // since rules that receive no match are skipped, we can make sure that every rule that we actually need gets executed
             int i = 12;
             while (i > 0) 
             {

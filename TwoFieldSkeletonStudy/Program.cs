@@ -12,12 +12,6 @@ namespace TwoFieldSkeletonStudy
     {
         /// <summary>
         /// Script illustrating (only) the fundamental building blocks of the algorithmic design framework (to be further expanded)
-        /// To scale up the complexity of the method bit by bit, i would recommend to maybe proceed as follows:
-        ///     Assemble entire field(single-storey) with beam and deck with varying x-y-z-extensions
-        ///     Vary also number and height of storeys
-        ///     Introduce possibility to vary number of fields ("intermediary column" module necessary...)
-        ///     Generate two different fields with different number of storeys
-        ///     ...
         /// </summary>
         static void Main(string[] args)
         {
@@ -324,5 +318,3 @@ namespace TwoFieldSkeletonStudy
         }
     }
 }
-
-

@@ -57,12 +57,15 @@ namespace GrammarMetaModel
             }
             else
             {
+                // check if there is a possible match
                 try
                 {
+                    // if yeas return it
                     match = Matches.First();
                 }
                 catch (Exception ex)
                 {
+                    // otherwise return null (rule execution gets skipped)
                     return null;
                 }
             }

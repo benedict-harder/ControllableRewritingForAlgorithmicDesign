@@ -19,14 +19,17 @@ namespace GrammarMetaModel
         /// </summary>
         public static Assembly ApplyRule(Assembly assemblyToBeProcessed, RuleDefinition rule, RuleCatalogue availableRules)
         {
+            // get available rules matches
             RuleMatchingResult matches = new RuleMatchingResult(assemblyToBeProcessed, rule);
             ComponentInterface match = matches.GetMatch(false);
+            // if match is null, skip this rule
             if (match == null)
             {
                 return assemblyToBeProcessed;
             }
             else
             {
+                // otherwise execute rewriting
                 ExecuteRewriting(assemblyToBeProcessed, matches.GetMatch(false), rule.RhsModuleInterface, availableRules);
                 return assemblyToBeProcessed;
 
@@ -55,6 +58,7 @@ namespace GrammarMetaModel
 
         /// <summary>
         ///  Creates the new component, transforms it in place and processes the design graph
+        ///  Then, checks for collisions with other open interfaces in the assembly and connects them
         /// </summary>
         public static Assembly ExecuteRewriting(Assembly designGraph, ComponentInterface existingInterfaceToConnectTo, PartInterface newPartInterface, RuleCatalogue availableRules)
         {
