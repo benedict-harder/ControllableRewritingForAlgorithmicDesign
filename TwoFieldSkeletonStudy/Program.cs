@@ -262,8 +262,8 @@ namespace TwoFieldSkeletonStudy
             projectParameters.Parameters["NumberOfStoreys"] = 2.0;
             projectParameters.Parameters["NumberOfBasementStoreys"] = 1.0;
             projectParameters.Parameters["StoreyHeight"] = 3.5;
-            projectParameters.Parameters["FieldLengthX"] = 10.0;
-            projectParameters.Parameters["FieldLengthY"] = 10.0;
+            projectParameters.Parameters["FieldLengthX"] = 18.0;
+            projectParameters.Parameters["FieldLengthY"] = 18.0;
             projectParameters.Parameters["ColumnWidth"] = 0.3;
 
             double zcoord = projectParameters.Parameters["NumberOfBasementStoreys"] * projectParameters.Parameters["StoreyHeight"] * (-1);

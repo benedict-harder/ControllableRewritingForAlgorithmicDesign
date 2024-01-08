@@ -20,24 +20,30 @@ namespace TwoFieldSkeletonStudy
         public override List<RuleDefinition> DefineSequenceOfRuleApplications()
         {
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
-            int nrOfColumns = (int)Math.Pow(ProjectParameters.Parameters["NumberOfFields"] + 1, 2);
-            //set four rules of column placement
-            while (nrOfColumns > 0)
+            int nrOfFields = (int)ProjectParameters.GetParameterValue("NumberOfFields");
+            int nrOfColumns = (int)Math.Pow(nrOfFields + 1, 2);
+            int nrOfOuterColumns = nrOfFields * 4;
+            int k = 0;
+            int j = 0;
+            for (int i = 0; i <nrOfColumns; i++)
             {
-                if (nrOfColumns == 1)
+                if (i >= nrOfOuterColumns)
                 {
                     rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation3"));
                 }
-                else if (nrOfColumns % 2 == 0)
+                else if (i == 0 || k-nrOfFields == j)
                 {
-                    rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation2"));
+                    rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation1"));
+                    j = k;
                 }
                 else
                 {
-                    rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation1"));
+                    rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnFoundation2"));
                 }
-                nrOfColumns--;
+                k++;
             }
+
+
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
         }

@@ -24,7 +24,7 @@ namespace TwoFieldSkeletonStudy
 
             // here we set "too many" rules
             // since rules that receive no match are skipped, we can make sure that every rule that we actually need gets executed
-            int i = 12;
+            int i = 20;
             while (i > 0) 
             {
                 rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "BeamOnColumnConsole1"));
@@ -59,7 +59,8 @@ namespace TwoFieldSkeletonStudy
                 double width = ProjectParameters.GetParameterValue("ColumnWidth");
                 // alternate between fieldlengths used
                 //double length = i % 2 == 0 ? ProjectParameters.GetParameterValue("FieldLengthX") - width : ProjectParameters.GetParameterValue("FieldLengthY") - width;
-                double length = 4.7;
+                //double length = 5.7;
+                double length = 8.7;
                 specifiedPartParams["RH_IN:Length"] = length;
                 specifiedPartParams["RH_IN:Width"] = width;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
