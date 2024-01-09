@@ -36,7 +36,7 @@ namespace TwoFieldSkeletonStudy
             {
                 Dictionary<string, double> specifiedPartParams = new Dictionary<string, double>();
                 double lengthX = this.ProjectParameters.GetParameterValue("FieldLengthX") + 0.3;
-                double lengthY = this.ProjectParameters.GetParameterValue("FieldLengthY") + 0.3;
+                double lengthY = this.ProjectParameters.GetParameterValue("FieldLengthX") + 0.3;
                 specifiedPartParams["RH_IN:XExtension"] = lengthX;
                 specifiedPartParams["RH_IN:YExtension"] = lengthY;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified

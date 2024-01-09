@@ -60,7 +60,8 @@ namespace TwoFieldSkeletonStudy
                 // alternate between fieldlengths used
                 //double length = i % 2 == 0 ? ProjectParameters.GetParameterValue("FieldLengthX") - width : ProjectParameters.GetParameterValue("FieldLengthY") - width;
                 //double length = 5.7;
-                double length = 8.7;
+                //double length = 8.7;
+                double length = (ProjectParameters.GetParameterValue("FieldLengthX") / ProjectParameters.GetParameterValue("NumberOfFields")) - width;
                 specifiedPartParams["RH_IN:Length"] = length;
                 specifiedPartParams["RH_IN:Width"] = width;
                 partParameters.Add(specifiedPartParams); //only one param per rule specified
