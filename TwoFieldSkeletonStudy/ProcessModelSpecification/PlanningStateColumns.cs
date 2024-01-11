@@ -22,10 +22,34 @@ namespace TwoFieldSkeletonStudy
             List<RuleDefinition> rulesToBeExecuted = new List<RuleDefinition>();
 
             //set four rules of column placement
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck1"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck2"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck3"));
-            rulesToBeExecuted.Add(AvailableRules.Rules.First(r => r.Name == "ColumnOnDeck4"));
+            int nrOfFields = (int)ProjectParameters.GetParameterValue("NumberOfFields");
+            int nrOfColumns = (int)Math.Pow(nrOfFields + 1, 2);
+
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn1"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn1"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn1"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn1"));
+
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn3"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn3"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn3"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn3"));
+
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+            rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn2"));
+
+            //for (int i = 0; i < nrOfColumns; i++)
+            //{
+                
+                
+            //    rulesToBeExecuted.Add(AvailableRules.Rules.First(c => c.Name == "ColumnOnColumn3"));
+            //}
             //note: you(@Bene) may think about a concept to abbreviate such repetitive pattern definitions
             return rulesToBeExecuted;
 

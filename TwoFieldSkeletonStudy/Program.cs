@@ -219,6 +219,27 @@ namespace TwoFieldSkeletonStudy
                 column2.Connections.Where(c => c.Name == "Foundation").First(),
                 column2);
 
+            RuleDefinition columnOnColumn1 = new RuleDefinition(
+                "ColumnOnColumn1",
+                column2,
+                column2.Connections.Where(c => c.Name.StartsWith("Deck")).First(),
+                column2.Connections.Where(c => c.Name.StartsWith("Foundation")).First(),
+                column2);
+
+            RuleDefinition columnOnColumn2 = new RuleDefinition(
+                "ColumnOnColumn2",
+                column3,
+                column3.Connections.Where(c => c.Name.StartsWith("Deck")).First(),
+                column3.Connections.Where(c => c.Name.StartsWith("Foundation")).First(),
+                column3);
+
+            RuleDefinition columnOnColumn3 = new RuleDefinition(
+                "ColumnOnColumn3",
+                column4,
+                column4.Connections.Where(c => c.Name.StartsWith("Deck")).First(),
+                column4.Connections.Where(c => c.Name.StartsWith("Foundation")).First(),
+                column4);
+
 
             RuleCatalogue rules = new RuleCatalogue(
                 "OneField", new List<RuleDefinition> { 
@@ -248,7 +269,10 @@ namespace TwoFieldSkeletonStudy
                     columnOnDeck1, 
                     columnOnDeck2, 
                     columnOnDeck3, 
-                    columnOnDeck4 },
+                    columnOnDeck4,
+                    columnOnColumn1,
+                    columnOnColumn2,
+                    columnOnColumn3},
                  new List<Part> { foundation, column2, column3, column4, beam, deck });
             #endregion RuleDefinition
 
@@ -262,7 +286,7 @@ namespace TwoFieldSkeletonStudy
             projectParameters.Parameters["NumberOfStoreys"] = 2.0;
             projectParameters.Parameters["NumberOfBasementStoreys"] = 1.0;
             projectParameters.Parameters["StoreyHeight"] = 3.5;
-            projectParameters.Parameters["FieldLengthX"] = 20.0;
+            projectParameters.Parameters["FieldLengthX"] = 18.0;
             //projectParameters.Parameters["FieldLengthY"] = 20.0;
             projectParameters.Parameters["ColumnWidth"] = 0.3;
 
@@ -281,10 +305,6 @@ namespace TwoFieldSkeletonStudy
             AssemblingState assemmblingBottomBeams = new AssemblingState();
             skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomBeams, assemmblingBottomBeams);
 
-            PlanningStateDeck planningBottomDeck = new PlanningStateDeck(rules, projectParameters);
-            AssemblingState assemblingBottomDeck = new AssemblingState();
-            skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBottomDeck, assemblingBottomDeck);
-
             int nrOfStoreys = Convert.ToInt16(projectParameters.Parameters["NumberOfStoreys"] + projectParameters.Parameters["NumberOfBasementStoreys"]) - 1;
             for (int i = 0; i < nrOfStoreys; i++)
             {
@@ -296,9 +316,6 @@ namespace TwoFieldSkeletonStudy
                 AssemblingState assemmblingBeams = new AssemblingState();
                 skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningBeams, assemmblingBeams);
 
-                PlanningStateDeck planningDeck = new PlanningStateDeck(rules, projectParameters);
-                AssemblingState assemblingDeck = new AssemblingState();
-                skeletonProcessModel.AddRelatedPlanningAndAssemblingState(planningDeck, assemblingDeck);
             }
 
 
